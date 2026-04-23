@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:myfirstapp/dialogs/addGoalDialog.dart';
+import 'package:myfirstapp/dialogs/longPressedDialog.dart';
 import 'package:myfirstapp/providers/GoalProvider.dart';
+import 'package:myfirstapp/screens/archivedScreen.dart';
 import 'package:myfirstapp/screens/goalScreen.dart';
 import 'package:provider/provider.dart';
 import 'package:myfirstapp/dialogs/confirmationDeleteDialog.dart';
+import 'package:myfirstapp/method/HomeScreenMethod.dart';
 class HomePage extends StatefulWidget {
   @override
   _HomePage createState() => _HomePage();
@@ -33,7 +36,7 @@ class AppDrawer extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => HomePage()),
+                    builder: (context) => ArchivedScreen()),
               );
             },
           ),
@@ -55,6 +58,7 @@ class AppDrawer extends StatelessWidget {
   }
 }
 class _HomePage extends State<HomePage> {
+  final homeMethod = Homescreenmethod();
   @override
   Widget build(BuildContext context) {
     final goals = context.watch<GoalProvider>().goals;
@@ -64,10 +68,9 @@ class _HomePage extends State<HomePage> {
       drawer: AppDrawer(),
       appBar: AppBar(
         backgroundColor: Colors.blue,
-        title: Text('Dashboard',
+        title: Text('Goal Dashboard',
           style: TextStyle(color: Colors.white,fontFamily: 'roboto',fontWeight: FontWeight.bold),),
         centerTitle: true,
-
         actions: [
           IconButton(onPressed: (){}, icon: Icon(Icons.dark_mode),
             style: IconButton.styleFrom(
@@ -96,6 +99,10 @@ class _HomePage extends State<HomePage> {
           onTap: (){
             Navigator.push(context,
                 MaterialPageRoute(builder: (context) => GoalScreen(index:index)));
+
+          },
+          onLongPress: (){
+            showDialog(context: context, builder:(_) => Longpresseddialog(goal:goal));
           },
           child: Container(
             margin: EdgeInsets.all(10),
@@ -134,17 +141,15 @@ class _HomePage extends State<HomePage> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Padding(padding: EdgeInsets.only(left: 3, top: 3),
-                            child: Text('Goal Name - ${goal.goalName}',
+                            child: Text('${goal.goalName}',
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
-                              style: TextStyle(color: Colors.blueAccent,fontWeight: FontWeight.bold),),),
+                              style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15),),),
                           Padding(padding: EdgeInsets.only(left: 3),
-                            child: Text('Goal Remaining: ${goal.currency}${goal.goalRemaining}'),),
+                            child: Text('${goal.currency}${goal.goalProgress.toStringAsFixed(2)} Saved         ${goal.currency}${goal.goalAmount.toStringAsFixed(2)} Goal'),),
                           Padding(padding: EdgeInsets.only(left: 3),
-                            child: Text('Goal Progress: ${goal.currency}${goal.goalProgress}'),),
-                          Padding(padding: EdgeInsets.only(bottom: 3,left: 3),
-                            child: Text('Goal Amount: ${goal.currency}${goal.goalAmount}'),
-                          )],
+                            child: Text('Remaining: ${goal.currency}${homeMethod.RemainingStringMethod(goal)}'),)
+                          ],
                       ),
                     ),
                     IconButton(onPressed: (){

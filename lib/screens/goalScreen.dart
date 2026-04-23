@@ -8,7 +8,7 @@ import 'package:myfirstapp/dialogs/addSavingDialog.dart';
 import 'package:provider/provider.dart';
 import 'package:myfirstapp/providers/GoalProvider.dart';
 import 'package:myfirstapp/dialogs/editGoalDialog.dart';
-import 'package:myfirstapp/method/editGoalMethod.dart';
+import 'package:myfirstapp/method/GoalScreenMethod.dart';
 import 'package:intl/intl.dart';
 
 class GoalScreen extends StatefulWidget {
@@ -37,7 +37,7 @@ class _GoalScreenState extends State<GoalScreen> {
     final goalRemaining = goal.goalRemaining;
     final note = goal.note;
     final currency = goal.currency;
-    final history = goal.history;
+    final history = goal.goalHistory;
 
     
     print(method.gettingPercentage(goal));
@@ -85,35 +85,23 @@ class _GoalScreenState extends State<GoalScreen> {
                           ),
                         ),
                         Center(
-                          child: Text('Saved',
-                              style: TextStyle(fontSize: 18)),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Padding(padding: EdgeInsets.only(right: 40),
+                              child: Text('🔴Remaining Amount',
+                                style: TextStyle(fontSize: 12),),),
+                              Padding(padding: EdgeInsets.only(left: 40),
+                              child:  Text('🔵Progress Amount',
+                                  style: TextStyle(fontSize: 12)),)
+                            ],
+                          ),
                         ),
-                        Center(
-                          child: Text('${currency} ${goalProgress}',
-                              style: TextStyle(fontSize: 18)),
-                        ),
-                        SizedBox(height: 7,),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Text('Remaining',
-                                style: TextStyle(fontSize: 18)),
-                            Text('Goal Amount',
-                                style: TextStyle(fontSize: 18))
-                          ],
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Container(margin: EdgeInsets.only(right:40 ),
-                              child: Text('${currency} ${goalRemaining!.toStringAsFixed(2)}',
-                                  style: TextStyle(fontSize: 18,color: method.colorValidation(goal))),),
-                            Padding(padding: EdgeInsets.only(right: 20),
-                              child: Text('${goal.currency} ${goal.goalAmount!.toStringAsFixed(2)}',
-                                style: TextStyle(fontSize: 18),),)
-                          ],
-                        ),
-                        SizedBox(height: 8,),
+                        SizedBox(height: 10,),
+                        method.displaySaved(goal),
+                        SizedBox(height: 10,),
+                        method.displayRemainingandAmount(goal),
+                        SizedBox(height: 10,),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
@@ -139,7 +127,7 @@ class _GoalScreenState extends State<GoalScreen> {
                     ),
                   ],
                 ),
-                goal.history.length == 0 ? Column(
+                if (goal.goalHistory.length == 0) Column(
                   children: [
                    Padding(padding: EdgeInsets.only(top:100),
                    child:  Image.asset('assets/noo-Goal.gif',
@@ -151,57 +139,13 @@ class _GoalScreenState extends State<GoalScreen> {
                               style: TextStyle(fontSize: 20),),
                     ))
                   ]
-                )
-              :ListView.builder(
+                ) else ListView.builder(
                   itemCount: history.length,
                     itemBuilder:(context,index){
                       final historyIndex = history[index];
                       print('hello${history[index]['amount']}');
-                      return Container(
-                        margin: EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                          boxShadow: [
-                            BoxShadow(
-                              color: Color.fromRGBO(50, 50, 93, 0.25),
-                              blurRadius: 27,
-                              spreadRadius: -5,
-                              offset: Offset(0, 13),
-                            ),
-                            BoxShadow(
-                              color: Color.fromRGBO(0, 0, 0, 0.3),
-                              blurRadius: 16,
-                              spreadRadius: -8,
-                              offset: Offset(0, 8),
-                            )
-                          ],
-                          borderRadius: BorderRadius.circular(20),
-                          color: Colors.white,
-                        ),
-
-                        child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Padding(padding: EdgeInsets.only(left: 10,top: 5),
-                                  child: Text('${history[index]['date']}')
-                                  ,),
-                                Align(
-                                  alignment: Alignment.topRight,
-                                  child: Padding(padding: EdgeInsets.only(right: 30,top: 5),
-                                    child: Text('+${currency} ${double.parse(history[index]['amount']!).toStringAsFixed(2)}',
-                                      style: TextStyle(color: method.colorValidation2(history[index]['operator']!),fontSize: 16),),),),
-                              ],
-                            ),
-                            Padding(padding: EdgeInsets.only(top:2,bottom: 1,left: 10),
-                            child: Text('Note: ${history[index]['note']}'),)
-
-                          ],
-                        ),
-
-                      );
-
+                      print('${historyIndex}');
+                      return method.historyContainer(goal, index);
                     }
                     ),
               ],

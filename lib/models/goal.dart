@@ -6,7 +6,9 @@ class Goal {
   int goalProgress;
   String note;
   String currency;
-  List<Map<String,String>> history;
+  List<Map<String,String>> goalHistory;
+  bool isArchived;
+
 
   Goal({
     required this.id,
@@ -16,7 +18,8 @@ class Goal {
     required this.goalProgress,
     required this.note,
     required this.currency,
-    required this.history,
+    required this.goalHistory,
+    required this.isArchived,
 });
 
   factory Goal.fromJson(Map<String, dynamic> json) {
@@ -28,11 +31,12 @@ class Goal {
       goalProgress: json['goalProgress'],
       note: json['note'],
       currency: json['currency'],
-      history: List<Map<String, String>>.from(
-        (json['history'] ?? []).map(
+      goalHistory: List<Map<String, String>>.from(
+        (json['goalHistory'] ?? []).map(
               (e) => Map<String, String>.from(e),
         ),
       ),
+      isArchived: json['isArchived'],
     );
   }
 
@@ -45,7 +49,8 @@ class Goal {
         'goalProgress': goalProgress,
         'note': note,
         'currency': currency,
-        'history' : history,
+        'goalHistory' : goalHistory,
+        'isArchived': isArchived,
       };
     }
   }

@@ -132,8 +132,10 @@ class _AddGoalDialogState extends State<AddGoalDialog> {
                       goalProgress:0,
                       note: _note.text ?? '',
                       currency:selectedcurrency,
-                      history: [],
+                      goalHistory: [],
+                      isArchived: false,
                     );
+
                     Navigator.pop(context);
 
                     context.read<GoalProvider>().AddGoal(goal);

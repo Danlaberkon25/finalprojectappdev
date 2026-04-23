@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
 
-class HomeMethod{
-  Color colorValidation(goal){
-    if(goal.goalProgress > goal.goalAmount){
-      return Colors.redAccent;
+class Homescreenmethod {
+  int RemainingStringMethod(goal){
+    if (goal.goalRemaining < 0){
+      return 0;
     }else{
-      return Colors.black;
+      return goal.goalRemaining;
     }
   }
 }

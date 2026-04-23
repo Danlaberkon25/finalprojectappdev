@@ -7,8 +7,10 @@ import 'package:intl/intl.dart';
 class GoalProvider with ChangeNotifier {
   final LocalStorage storage;
   List<Goal> _goals = [];
+  List<Goal> _archived = [];
 
   List<Goal> get goals => _goals;
+  List<Goal> get archived => _archived;
 
   GoalProvider(this.storage){
     _loadGoalFromStorage();
@@ -22,6 +24,21 @@ class GoalProvider with ChangeNotifier {
     }
   }
 
+  void _loadArchivedFromStorage(){
+    final archivedStorage = storage.getItem('archive');
+    if(archivedStorage != null){
+      final List decoded = jsonDecode(archivedStorage);
+      _archived = decoded.map((archived) => Goal.fromJson(archived)).toList();
+      notifyListeners();
+    }
+  }
+
+  void _saveArchivedToStorage() {
+    storage.setItem(
+        'archive', jsonEncode(_archived.map((e) => e.toJson()).toList()));
+  }
+
+
   void _saveGoalToStorage() {
     storage.setItem('goals',jsonEncode(_goals.map((e) => e.toJson()).toList())
     );
@@ -33,7 +50,28 @@ class GoalProvider with ChangeNotifier {
     _goals.add(goal);
     _saveGoalToStorage();
     notifyListeners();
+  }
 
+  void ArchiveGoal(Goal goal) {
+    goal.isArchived = true;
+    if(goal.isArchived == true){
+      print(goal);
+      _archived.add(goal);
+      _goals.remove(goal);
+      _saveGoalToStorage();
+      _saveArchivedToStorage();
+      notifyListeners();
+    }
+  }
+
+  void UnArchiveGoal(archive){
+    archive.isArchived = false;
+    if(archive.isArchived == false){
+      _goals.add(archive);
+      _archived.remove(archive);
+      _saveArchivedToStorage();
+      notifyListeners();
+    }
   }
 
   void RemoveGoal(goal){
@@ -43,12 +81,12 @@ class GoalProvider with ChangeNotifier {
   }
 
   void AddSavings(int index, int amount,String operator,note) {
-    final dateFormat = DateFormat('dd/MM/yyyy hh:mm a').format(DateTime.now());
+    final dateFormat = DateFormat.yMMMMd('en_US').add_jm().format(DateTime.now());
 
     _goals[index].goalProgress += amount;
     _goals[index].goalRemaining -= amount;
 
-    _goals[index].history!.add({
+    _goals[index].goalHistory!.add({
       'date': dateFormat,
       'amount': amount.toString(),
       'operator':'add',
@@ -63,7 +101,7 @@ class GoalProvider with ChangeNotifier {
     _goals[index].goalProgress -= amount;
     _goals[index].goalRemaining += amount;
     final dateFormat = DateFormat('dd/MM/yyyy hh:mm a').format(DateTime.now());
-    _goals[index].history!.add({
+    _goals[index].goalHistory!.add({
       'date': dateFormat,
       'amount': amount.toString(),
       'operator':'withdraw',
@@ -75,6 +113,7 @@ class GoalProvider with ChangeNotifier {
 
   void UpdateGoal(int index,String name,int amount,String note,String currency){
     if(_goals[index].goalProgress > _goals[index].goalRemaining){
+
       _goals[index].goalName = name;
       _goals[index].goalAmount = amount;
       _goals[index].goalRemaining = _goals[index].goalAmount - _goals[index].goalProgress;
@@ -92,6 +131,7 @@ class GoalProvider with ChangeNotifier {
       _saveGoalToStorage();
       notifyListeners();
     }
-
   }
+
+
 }
