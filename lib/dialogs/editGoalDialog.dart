@@ -6,8 +6,8 @@ import 'package:myfirstapp/providers/selectionProvider.dart';
 import 'package:myfirstapp/dialogs/currencyDialog.dart';
 
 class EditGoalDialog extends StatefulWidget {
-  final int index;
-  const EditGoalDialog({super.key,required this.index});
+  final Goal goal;
+  const EditGoalDialog({super.key,required this.goal});
 
   @override
   State<EditGoalDialog> createState() => _EditGoalDialogState();
@@ -19,7 +19,7 @@ class _EditGoalDialogState extends State<EditGoalDialog> {
 
   @override
   Widget build(BuildContext context) {
-    final goal = context.watch<GoalProvider>().goals[widget.index];
+    final goal = widget.goal;
     TextEditingController _goalName = TextEditingController(text: goal.goalName);
     TextEditingController _goalAmount = TextEditingController(text: '${goal.goalAmount}');
     TextEditingController _note = TextEditingController(text: '${goal.note}');
@@ -116,7 +116,7 @@ class _EditGoalDialogState extends State<EditGoalDialog> {
                 ),
                 ElevatedButton(onPressed: (){
                   Provider.of<GoalProvider>(context,listen: false)
-                      .UpdateGoal(widget.index,_goalName.text,int.parse(_goalAmount.text),_note.text,selectedCurrency);
+                      .UpdateGoal(goal,_goalName.text,int.parse(_goalAmount.text),_note.text,selectedCurrency);
                   Navigator.pop(context);
                 },
                   child: Text('Done',

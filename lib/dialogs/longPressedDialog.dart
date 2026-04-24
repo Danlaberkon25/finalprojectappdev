@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:myfirstapp/dialogs/editGoalDialog.dart';
 import 'package:myfirstapp/providers/selectionProvider.dart';
 import 'package:provider/provider.dart';
 import 'package:myfirstapp/providers/GoalProvider.dart';
@@ -17,43 +18,64 @@ class _LongPressedDialogState extends State<Longpresseddialog> {
   @override
   Widget build(BuildContext context) {
     final goalprovider = context.watch<GoalProvider>();
+    final goal = widget.goal;
     return AlertDialog(
         backgroundColor: Colors.white,
         title: Center(
-          child: const Text("",
-            style: TextStyle(),
+          child: Text("${goal.goalName}",
+            style: TextStyle(fontSize: 18,color: Colors.blueAccent),
           ),
         ),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Center(child: Image.asset('assets/mocha-cry.gif',
-              height: 59,
-              width: 80,),
+            Center(
+              child:TextButton(onPressed:(){
+                Navigator.pop(context);
+                showDialog(context: context, builder: (_) => EditGoalDialog(goal:goal));
+              }, child: Text('Edit',
+                style: TextStyle(color: Colors.white),),
+                style: TextButton.styleFrom(
+                    backgroundColor: Colors.blueAccent,
+                    fixedSize: Size(200, 40),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5),
+                    )
+                ),
+              ),
             ),
             SizedBox(height: 10,),
             Center(
-              child:Text("Are you sure you want to Delete?"),
+              child:TextButton(onPressed:(){
+                goalprovider.ArchiveGoal(goal);
+                Navigator.pop(context);
+              }, child: Text('Archive',
+                style: TextStyle(color: Colors.white),),
+                style: TextButton.styleFrom(
+                    fixedSize: Size(200, 40),
+                    backgroundColor: Colors.blueAccent,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5),
+                    )
+                ),
+              ),
             ),
             SizedBox(height: 10,),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                ElevatedButton(onPressed: (){
-                  Navigator.pop(context);
-                }, child: Text('Cancel',
-                    style: TextStyle(color: Colors.white)),
-                  style: ElevatedButton.styleFrom(backgroundColor: Colors.blueAccent),
+            Center(
+              child:TextButton(onPressed:(){
+                goalprovider.RemoveGoal(goal);
+                Navigator.pop(context);
+              }, child: Text('Delete',
+                style: TextStyle(color: Colors.white),),
+                style: TextButton.styleFrom(
+                    fixedSize: Size(200, 40),
+                    backgroundColor: Colors.blueAccent,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5),
+                    )
                 ),
-                ElevatedButton(onPressed: (){
-                  goalprovider.ArchiveGoal(widget.goal);
-                  Navigator.pop(context);
-                }, child: Text('Yes Delete',
-                    style: TextStyle(color: Colors.redAccent[400])),
-                  style: ElevatedButton.styleFrom(backgroundColor: Colors.pink[100]),
-                ),
-              ],
-            )
+              ),
+            ),
           ],
         )
     );

@@ -2,11 +2,10 @@ class Goal {
   String id;
   String goalName;
   int goalAmount;
-  int goalRemaining;
   int goalProgress;
   String note;
   String currency;
-  List<Map<String,String>> goalHistory;
+  List<Map<String,dynamic>> goalHistory;
   bool isArchived;
 
 
@@ -14,7 +13,6 @@ class Goal {
     required this.id,
     required this.goalName,
     required this.goalAmount,
-    required this.goalRemaining,
     required this.goalProgress,
     required this.note,
     required this.currency,
@@ -27,13 +25,12 @@ class Goal {
       id: json['id'],
       goalName: json['goalName'],
       goalAmount: json['goalAmount'],
-      goalRemaining: json['goalRemaining'],
       goalProgress: json['goalProgress'],
       note: json['note'],
       currency: json['currency'],
-      goalHistory: List<Map<String, String>>.from(
+      goalHistory: List<Map<String, dynamic>>.from(
         (json['goalHistory'] ?? []).map(
-              (e) => Map<String, String>.from(e),
+              (e) => Map<String, dynamic>.from(e),
         ),
       ),
       isArchived: json['isArchived'],
@@ -45,7 +42,6 @@ class Goal {
         'id': id,
         'goalName': goalName,
         'goalAmount': goalAmount,
-        'goalRemaining': goalRemaining,
         'goalProgress': goalProgress,
         'note': note,
         'currency': currency,

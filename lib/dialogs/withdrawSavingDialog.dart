@@ -4,8 +4,8 @@ import 'package:provider/provider.dart';
 import 'package:myfirstapp/providers/GoalProvider.dart';
 
 class withdrawSavingDialog extends StatefulWidget {
-  final int index;
-  const withdrawSavingDialog({super.key,required this.index});
+  final Goal goal;
+  const withdrawSavingDialog({super.key,required this.goal});
 
   @override
   State<withdrawSavingDialog> createState() => _withdrawSavingDialogState();
@@ -68,7 +68,7 @@ class _withdrawSavingDialogState extends State<withdrawSavingDialog> {
                 ElevatedButton(onPressed: (){
 
                   Provider.of<GoalProvider>(context,listen: false)
-                      .WithdrawSavings(widget.index,int.parse(_goalAmount.text),'withdraw',_note.text);
+                      .WithdrawSavings(widget.goal,int.parse(_goalAmount.text),'withdraw',_note.text);
 
                   Navigator.pop(context);
 

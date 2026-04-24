@@ -80,13 +80,17 @@ class GoalProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void AddSavings(int index, int amount,String operator,note) {
+  void removeArchive(archive){
+    _archived.remove(archive);
+    _saveArchivedToStorage();
+    notifyListeners();
+  }
+
+
+  void AddSavings(goal, int amount,String operator,note) {
     final dateFormat = DateFormat.yMMMMd('en_US').add_jm().format(DateTime.now());
-
-    _goals[index].goalProgress += amount;
-    _goals[index].goalRemaining -= amount;
-
-    _goals[index].goalHistory!.add({
+    goal.goalProgress += amount;
+    goal.goalHistory!.add({
       'date': dateFormat,
       'amount': amount.toString(),
       'operator':'add',
@@ -97,11 +101,10 @@ class GoalProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void WithdrawSavings(int index,int amount,String operator,note){
-    _goals[index].goalProgress -= amount;
-    _goals[index].goalRemaining += amount;
+  void WithdrawSavings(goal,int amount,String operator,note){
+    goal.goalProgress -= amount;
     final dateFormat = DateFormat('dd/MM/yyyy hh:mm a').format(DateTime.now());
-    _goals[index].goalHistory!.add({
+    goal.goalHistory!.add({
       'date': dateFormat,
       'amount': amount.toString(),
       'operator':'withdraw',
@@ -111,26 +114,13 @@ class GoalProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void UpdateGoal(int index,String name,int amount,String note,String currency){
-    if(_goals[index].goalProgress > _goals[index].goalRemaining){
-
-      _goals[index].goalName = name;
-      _goals[index].goalAmount = amount;
-      _goals[index].goalRemaining = _goals[index].goalAmount - _goals[index].goalProgress;
-      _goals[index].note = note;
-      _goals[index].currency = currency;
+  void UpdateGoal(goal,String name,int amount,String note,String currency){
+      goal.goalName = name;
+      goal.goalAmount = amount;
+      goal.note = note;
+      goal.currency = currency;
       _saveGoalToStorage();
       notifyListeners();
-
-    }else{
-      _goals[index].goalName = name;
-      _goals[index].goalAmount = amount;
-      _goals[index].goalRemaining = amount;
-      _goals[index].note = note;
-      _goals[index].currency = currency;
-      _saveGoalToStorage();
-      notifyListeners();
-    }
   }
 
 

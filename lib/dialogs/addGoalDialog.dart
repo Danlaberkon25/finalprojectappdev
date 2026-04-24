@@ -128,7 +128,6 @@ class _AddGoalDialogState extends State<AddGoalDialog> {
                       id:DateTime.now()!.toString(),
                       goalName: _goalName.text,
                       goalAmount:int.parse(_goalAmount.text) ?? 0,
-                      goalRemaining:int.parse(_goalAmount.text) ?? 0,
                       goalProgress:0,
                       note: _note.text ?? '',
                       currency:selectedcurrency,

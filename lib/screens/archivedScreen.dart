@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:myfirstapp/dialogs/addGoalDialog.dart';
 import 'package:myfirstapp/dialogs/longPressedDialog.dart';
+import 'package:myfirstapp/method/ArchivedMethod.dart';
 import 'package:myfirstapp/providers/GoalProvider.dart';
 import 'package:myfirstapp/screens/goalScreen.dart';
 import 'package:provider/provider.dart';
 import 'package:myfirstapp/dialogs/confirmationDeleteDialog.dart';
 import 'package:myfirstapp/method/HomeScreenMethod.dart';
 import 'package:myfirstapp/dialogs/archivedLongPressedDialog.dart';
+import 'package:percent_indicator/percent_indicator.dart';
+import 'package:intl/intl.dart';
 class ArchivedScreen extends StatefulWidget {
   @override
   _ArchivedScreen createState() => _ArchivedScreen();
@@ -19,19 +22,15 @@ class _ArchivedScreen extends State<ArchivedScreen> {
   Widget build(BuildContext context) {
     final archived = context.watch<GoalProvider>().archived;
     final provider = context.watch<GoalProvider>();
+    final method = Archivedmethod();
+    final formatter = NumberFormat('#,##0.00');
     return Scaffold(
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
-        backgroundColor: Colors.blue,
         title: Text('Archive Dashboard',
-          style: TextStyle(color: Colors.white,fontFamily: 'roboto',fontWeight: FontWeight.bold),),
+          style: TextStyle(fontFamily: 'roboto',fontWeight: FontWeight.bold),),
         centerTitle: true,
-        actions: [
-          IconButton(onPressed: (){}, icon: Icon(Icons.dark_mode),
-            style: IconButton.styleFrom(
-              backgroundColor: Colors.blue,
-            ),),
-        ],
+
       ),
       body: archived.isEmpty ? Padding(padding: EdgeInsets.all(20),
           child: Column(
@@ -50,81 +49,107 @@ class _ArchivedScreen extends State<ArchivedScreen> {
         itemCount: provider.archived.length,
         itemBuilder: (context,index){
           final archive = provider.archived[index];
-          return GestureDetector(
-            onTap: (){
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => GoalScreen(index:index)));
-            },
-            onLongPress: (){
-              showDialog(context: context, builder:(_) => ArchivedLongPressedDialog(goal:archive));
-            },
-
-            child: Container(
-              margin: EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                boxShadow: [
-                  BoxShadow(
-                    color: Color.fromRGBO(50, 50, 93, 0.25),
-                    blurRadius: 27,
-                    spreadRadius: -5,
-                    offset: Offset(0, 13),
-                  ),
-                  BoxShadow(
-                    color: Color.fromRGBO(0, 0, 0, 0.3),
-                    blurRadius: 16,
-                    spreadRadius: -8,
-                    offset: Offset(0, 8),
-                  )
-                ],
-                borderRadius: BorderRadius.circular(20),
-                color: Colors.white,
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Padding(padding: EdgeInsets.only(left: 10,right: 5,top: 10),
-                        child: CircleAvatar(
-                          backgroundImage: AssetImage('assets/milk-hi.gif'),
-                          radius: 30,
-                        )
-                        ,),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Padding(padding: EdgeInsets.only(left: 3, top: 3),
-                              child: Text('${archive.goalName}',
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15),),),
-                            Padding(padding: EdgeInsets.only(left: 3),
-                              child: Text('${archive.currency}${archive.goalProgress.toStringAsFixed(2)} Saved         ${archive.currency}${archive.goalAmount.toStringAsFixed(2)} Goal'),),
-                            Padding(padding: EdgeInsets.only(left: 3),
-                              child: Text('Remaining: ${archive.currency}'),)
-                          ],
-                        ),
+          return Column(
+            children: [
+              GestureDetector(
+                onLongPress: () {
+                  showDialog(
+                    context: context,
+                    builder: (_) => ArchivedLongPressedDialog(archive: archive),
+                  );
+                },
+                child: Container(
+                  margin: EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    boxShadow: [
+                      BoxShadow(
+                        color: Color.fromRGBO(50, 50, 93, 0.25),
+                        blurRadius: 27,
+                        spreadRadius: -5,
+                        offset: Offset(0, 13),
                       ),
-
+                      BoxShadow(
+                        color: Color.fromRGBO(0, 0, 0, 0.3),
+                        blurRadius: 16,
+                        spreadRadius: -8,
+                        offset: Offset(0, 8),
+                      )
+                    ],
+                    borderRadius: BorderRadius.circular(20),
+                    color: Colors.white,
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding:
+                            EdgeInsets.only(left: 10, right: 5, top: 10),
+                            child: CircleAvatar(
+                              backgroundImage:
+                              AssetImage('assets/milk-hi.gif'),
+                              radius: 30,
+                            ),
+                          ),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment:
+                              CrossAxisAlignment.start,
+                              children: [
+                                Padding(
+                                  padding:
+                                  EdgeInsets.only(left: 10, top: 8),
+                                  child: Text(
+                                    '${archive.goalName}',
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 15,
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.all(0),
+                                  child: new LinearPercentIndicator(
+                                    width: 250,
+                                    barRadius: Radius.circular(10),
+                                    animation: true,
+                                    lineHeight: 10.0,
+                                    animationDuration: 2000,
+                                    percent: 0.9,
+                                    center: Text("${method.gettingPercentage(archive)}%",
+                                      style: TextStyle(fontSize: 7),),
+                                    linearStrokeCap: LinearStrokeCap.roundAll,
+                                    progressColor: Colors.greenAccent,
+                                  ),
+                                ),
+                                Padding(
+                                    padding:
+                                    EdgeInsets.only(left: 10, top: 2),
+                                    child: Row(
+                                      children: [
+                                        Padding(padding: EdgeInsets.only(right: 3),
+                                          child: method.ExcessSaved(archive),),
+                                        Text("/ ${archive.currency}${formatter.format(archive.goalAmount)}")
+                                      ],
+                                    )
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
                     ],
                   ),
-                ],
+                ),
               ),
-            ),
-
+            ],
           );
         },
       ),
-      floatingActionButton: Padding(padding: EdgeInsets.only(right: 20,bottom: 20),
-        child: FloatingActionButton(onPressed: (){
-          showDialog(
-            context: context,
-            builder: (_) => AddGoalDialog(),
-          );
-        },
-          child: Icon(Icons.add),),),
     );
   }
 }

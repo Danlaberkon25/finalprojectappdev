@@ -5,8 +5,8 @@ import 'package:myfirstapp/providers/GoalProvider.dart';
 import 'package:intl/intl.dart';
 
 class AddSavingDialog extends StatefulWidget {
-  final int index;
-  const AddSavingDialog({super.key,required this.index});
+  final Goal goal;
+  const AddSavingDialog({super.key,required this.goal});
 
   @override
   State<AddSavingDialog> createState() => _AddSavingDialogState();
@@ -73,7 +73,7 @@ class _AddSavingDialogState extends State<AddSavingDialog> {
                 ElevatedButton(onPressed: (){
 
                   Provider.of<GoalProvider>(context,listen: false)
-                        .AddSavings(widget.index,int.parse(_goalAmount.text),_add,_note.text);
+                        .AddSavings(widget.goal,int.parse(_goalAmount.text),_add,_note.text);
 
                   Navigator.pop(context);
 
