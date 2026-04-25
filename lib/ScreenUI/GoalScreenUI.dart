@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:myfirstapp/dialogs/withdrawSavingDialog.dart';
+import 'package:GoSaver/dialogs/withdrawSavingDialog.dart';
 import 'package:myfirstapp/models/goal.dart';
 import 'package:myfirstapp/screens/HomeScreen.dart';
 import 'package:percent_indicator/percent_indicator.dart';
