@@ -5,7 +5,6 @@ import 'package:myfirstapp/method/ArchivedMethod.dart';
 import 'package:myfirstapp/providers/GoalProvider.dart';
 import 'package:myfirstapp/screens/goalScreen.dart';
 import 'package:provider/provider.dart';
-import 'package:myfirstapp/dialogs/confirmationDeleteDialog.dart';
 import 'package:myfirstapp/method/HomeScreenMethod.dart';
 import 'package:myfirstapp/dialogs/archivedLongPressedDialog.dart';
 import 'package:percent_indicator/percent_indicator.dart';

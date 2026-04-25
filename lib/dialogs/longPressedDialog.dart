@@ -32,9 +32,9 @@ class _LongPressedDialogState extends State<Longpresseddialog> {
                 Navigator.pop(context);
                 showDialog(context: context, builder: (_) => EditGoalDialog(goal:goal));
               }, child: Text('Edit',
-                style: TextStyle(color: Colors.white),),
+                style: TextStyle(color: Colors.blueAccent),),
                 style: TextButton.styleFrom(
-                    backgroundColor: Colors.blueAccent,
+                    backgroundColor: Colors.blue[50],
                     fixedSize: Size(200, 40),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(5),
@@ -48,10 +48,10 @@ class _LongPressedDialogState extends State<Longpresseddialog> {
                 goalprovider.ArchiveGoal(goal);
                 Navigator.pop(context);
               }, child: Text('Archive',
-                style: TextStyle(color: Colors.white),),
+                style: TextStyle(color: Colors.grey[700]),),
                 style: TextButton.styleFrom(
                     fixedSize: Size(200, 40),
-                    backgroundColor: Colors.blueAccent,
+                    backgroundColor: Colors.grey[200],
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(5),
                     )
@@ -64,10 +64,10 @@ class _LongPressedDialogState extends State<Longpresseddialog> {
                 goalprovider.RemoveGoal(goal);
                 Navigator.pop(context);
               }, child: Text('Delete',
-                style: TextStyle(color: Colors.white),),
+                style: TextStyle(color: Colors.redAccent),),
                 style: TextButton.styleFrom(
                     fixedSize: Size(200, 40),
-                    backgroundColor: Colors.blueAccent,
+                    backgroundColor: Colors.pink[100],
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(5),
                     )

@@ -1,4 +1,3 @@
-import 'dart:ffi';
 import 'package:flutter/material.dart';
 import 'package:myfirstapp/dialogs/withdrawSavingDialog.dart';
 
@@ -52,13 +51,13 @@ class GoalScreenMethod {
 
   /// History Goal Amount Style
   Widget historyGoalAmountStyle(goal, int index) {
-    final item = goal.goalHistory[index];
+    final history = goal.goalHistory[index];
+    final amount = int.tryParse(history['amount']);
+    print('hi ${amount}');
 
-    if (item['operator'] == 'add') {
+    if (history['operator'] == 'add') {
       return Text(
-        '+ ${goal.currency} ${double
-            .parse(item['amount'].toString())
-            .toStringAsFixed(2)}',
+        '+ ${goal.currency} ${formatter.format(amount)}',
         style: const TextStyle(
             color: Colors.green,
             fontSize: 16,
@@ -68,9 +67,7 @@ class GoalScreenMethod {
       );
     } else {
       return Text(
-        '- ${goal.currency} ${double
-            .parse(item['amount'].toString())
-            .toStringAsFixed(2)}',
+        '- ${goal.currency} ${formatter.format(amount)}',
         style: const TextStyle(
             color: Colors.redAccent,
             fontSize: 16,
@@ -90,124 +87,10 @@ class GoalScreenMethod {
     }
   }
 
-  // Display Saved and Goal Container
-  Widget displaySavedAndGoalContainer(goal) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          children: [
-            Container(
-              margin: EdgeInsets.only(left: 20),
-              width: 150,
-              height: 60,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color: Colors.white,
-                  boxShadow: [
-                    BoxShadow(
-                      color: Color.fromRGBO(50, 50, 93, 0.25),
-                      blurRadius: 100,
-                      spreadRadius: -20,
-                      offset: Offset(0, 50),
-                    ),
-                    BoxShadow(
-                      color: Color.fromRGBO(0, 0, 0, 0.3),
-                      blurRadius: 60,
-                      spreadRadius: -30,
-                      offset: Offset(0, 30),
-                    ),
-                    BoxShadow(
-                      color: Color.fromRGBO(10, 37, 64, 0.35),
-                      blurRadius: 6,
-                      spreadRadius: 0,
-                      offset: Offset(0, -2),
-                    ),
-                    BoxShadow(
-                      color: Color.fromRGBO(0, 0, 0, 1.0),
-                      blurRadius: 0,
-                      spreadRadius: 0,
-                      offset: Offset(0, 0),
-                    )
-                  ]
-              ),
-              child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(padding: EdgeInsets.only(left: 10, top: 5),
-                      child: Text('Saved', style: TextStyle(fontSize: 15),),),
-                    Padding(padding: EdgeInsets.fromLTRB(10, 3, 0, 0),
-                      child: Text(
-                        '${goal.currency} ${formatter.format(
-                            goal.goalProgress)}',
-                        style: TextStyle(fontWeight: FontWeight.bold,
-                            fontSize: 12,
-                            color: colorValidationSaved(goal),
-                            fontFamily: 'roboto'),
-                      ),),
-
-                  ]
-              ),
-            ),
-            Container(
-              margin: EdgeInsets.only(left: 20),
-              width: 150,
-              height: 60,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color: Colors.white,
-                  boxShadow: [
-                    BoxShadow(
-                      color: Color.fromRGBO(50, 50, 93, 0.25),
-                      blurRadius: 100,
-                      spreadRadius: -20,
-                      offset: Offset(0, 50),
-                    ),
-                    BoxShadow(
-                      color: Color.fromRGBO(0, 0, 0, 0.3),
-                      blurRadius: 60,
-                      spreadRadius: -30,
-                      offset: Offset(0, 30),
-                    ),
-                    BoxShadow(
-                      color: Color.fromRGBO(10, 37, 64, 0.35),
-                      blurRadius: 6,
-                      spreadRadius: 0,
-                      offset: Offset(0, -2),
-                    ),
-                    BoxShadow(
-                      color: Color.fromRGBO(0, 0, 0, 1.0),
-                      blurRadius: 0,
-                      spreadRadius: 0,
-                      offset: Offset(0, 0),
-                    )
-                  ]
-              ),
-              child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(padding: EdgeInsets.only(left: 10, top: 5),
-                      child: Text(
-                        'Goal Amount', style: TextStyle(fontSize: 15),),),
-                    Padding(padding: EdgeInsets.only(left: 10, top: 3),
-                      child: Text(
-                        '${goal.currency} ${formatter.format(goal.goalAmount)}',
-                        style: TextStyle(fontSize: 12,
-                            fontFamily: 'roboto',
-                            fontWeight: FontWeight.bold),),)
-                  ]
-              ),
-            )
-          ],
-        )
-
-      ],
-    );
-  }
-
   ////Message Box for Withdraw Savings
   void showMessageBox(BuildContext context) {
     showDialog(
+
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(

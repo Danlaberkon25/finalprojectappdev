@@ -32,7 +32,6 @@ class _EditGoalDialogState extends State<EditGoalDialog> {
       ),
       content: SizedBox(
         width: 290,
-        height: 368,
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -40,7 +39,7 @@ class _EditGoalDialogState extends State<EditGoalDialog> {
               height: 49,
               width: 80,),
             ),
-            Padding(padding: EdgeInsets.all(2),
+            Padding(padding: EdgeInsets.all(8),
               child: TextField(
                 controller: _goalName,
                 decoration: InputDecoration(
@@ -51,7 +50,7 @@ class _EditGoalDialogState extends State<EditGoalDialog> {
               ),
             ),
 
-            Padding(padding: EdgeInsets.all(2),
+            Padding(padding: EdgeInsets.all(8),
               child: TextField(
                 keyboardType: TextInputType.number,
                 controller: _goalAmount,
@@ -109,8 +108,8 @@ class _EditGoalDialogState extends State<EditGoalDialog> {
                   Navigator.pop(context);
                 },
                   child: Text('Done',
-                      style: TextStyle(color: Colors.white)),
-                  style: ElevatedButton.styleFrom(backgroundColor: Colors.blueAccent),
+                      style: TextStyle(color: Colors.green)),
+                  style: ElevatedButton.styleFrom(backgroundColor: Colors.green[50]),
                 ),
               ],
             )

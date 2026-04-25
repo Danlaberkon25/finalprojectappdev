@@ -98,8 +98,9 @@ class _AddGoalDialogState extends State<AddGoalDialog> {
                   ElevatedButton(onPressed: (){
                     Navigator.pop(context);
                   }, child: Text('Cancel',
-                      style: TextStyle(color: Colors.white)),
-                    style: ElevatedButton.styleFrom(backgroundColor: Colors.blueAccent),
+                  style: TextStyle(color: Colors.grey[700]),
+                  ),
+                    style: ElevatedButton.styleFrom(backgroundColor: Colors.grey[200]),
                   ),
                   ElevatedButton(onPressed: (){
 
@@ -126,8 +127,8 @@ class _AddGoalDialogState extends State<AddGoalDialog> {
                   },
                     child: Text('Add',
 
-                      style: TextStyle(color: Colors.white)),
-                    style: ElevatedButton.styleFrom(backgroundColor: Colors.blueAccent),
+                      style: TextStyle(color: Colors.green)),
+                    style: ElevatedButton.styleFrom(backgroundColor: Colors.green[50]),
                   ),
                 ],
               )

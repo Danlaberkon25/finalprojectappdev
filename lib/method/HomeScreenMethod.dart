@@ -11,18 +11,17 @@ class Homescreenmethod {
     }
   }
 
-  Widget ExcessSaved(goal){
-    final formatter = NumberFormat('#,##0.00');
+  Color conditionColorSaved(goal){
     if (goal.goalProgress > goal.goalAmount){
-      return Text('${goal.currency} ${formatter.format(goal.goalProgress)}',
-      style: TextStyle(color: Colors.redAccent),
-        overflow: TextOverflow.ellipsis,);
+      return Colors.redAccent;
+    }else if(goal.goalProgress == goal.goalAmount){
+      return Colors.green;
+
     }else{
-      return Text('${goal.currency} ${formatter.format(goal.goalProgress)}',
-        style: TextStyle(color: Colors.black),
-        overflow: TextOverflow.ellipsis,);
+      return Colors.black;
     }
   }
+
 
   /// Getting Percentage of the goal to display on the progress bar
   double gettingPercentage(goal) {

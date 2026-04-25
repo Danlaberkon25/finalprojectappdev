@@ -31,7 +31,6 @@ class _AddSavingDialogState extends State<AddSavingDialog> {
       ),
       content: SizedBox(
         width: 280,
-        height: 230,
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -39,7 +38,7 @@ class _AddSavingDialogState extends State<AddSavingDialog> {
               height: 49,
               width: 80,),
             ),
-            Padding(padding: EdgeInsets.all(2),
+            Padding(padding: EdgeInsets.all(5),
               child: TextField(
                 keyboardType: TextInputType.number,
                 controller: _goalAmount,
@@ -50,7 +49,7 @@ class _AddSavingDialogState extends State<AddSavingDialog> {
                 ),
               ),
             ),
-            Padding(padding: EdgeInsets.all(2),
+            Padding(padding: EdgeInsets.all(5),
               child: TextField(
                 controller: _note,
                 decoration: InputDecoration(
@@ -60,15 +59,15 @@ class _AddSavingDialogState extends State<AddSavingDialog> {
                 ),
               ),
             ),
-            SizedBox(height: 10,),
+            SizedBox(height: 3,),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 ElevatedButton(onPressed: (){
                   Navigator.pop(context);
                 }, child: Text('Cancel',
-                    style: TextStyle(color: Colors.black)),
-                  style: ElevatedButton.styleFrom(backgroundColor: Colors.grey[50]),
+                    style: TextStyle(color: Colors.grey[700])),
+                  style: ElevatedButton.styleFrom(backgroundColor: Colors.grey[200]),
                 ),
                 ElevatedButton(onPressed: (){
 
@@ -81,7 +80,7 @@ class _AddSavingDialogState extends State<AddSavingDialog> {
                   child: Text('Add',
 
                       style: TextStyle(color: Colors.green)),
-                  style: ElevatedButton.styleFrom(backgroundColor: Colors.grey[50]),
+                  style: ElevatedButton.styleFrom(backgroundColor: Colors.green[50]),
                 ),
               ],
             )
