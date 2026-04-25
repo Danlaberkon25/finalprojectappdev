@@ -20,14 +20,16 @@ class appBarWidget extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.blue,
       title: Text("${goal.goalName}",
-        style: TextStyle(fontFamily: 'roboto', fontWeight: FontWeight.bold),),
+        style: TextStyle(fontFamily: 'roboto', fontWeight: FontWeight.bold,color: Colors.white),),
       centerTitle: true,
       leading: IconButton(onPressed: () {
         Navigator.pop(context);
-      }, icon: Icon(Icons.arrow_back)),
+      }, icon: Icon(Icons.arrow_back),color: Colors.white,),
       bottom: const TabBar(
+        labelColor: Colors.white,
+          unselectedLabelColor: Colors.grey,
           tabs: [
             Tab(text: 'Savings'),
             Tab(text: 'History'),
@@ -38,7 +40,7 @@ class appBarWidget extends StatelessWidget implements PreferredSizeWidget {
             showDialog(context: context,
               builder: (_) => EditGoalDialog(goal: goal),);
             print("Hello world");
-          }, icon: Icon(Icons.edit_square)),),
+          }, icon: Icon(Icons.edit_square),color: Colors.white,),),
       ],
     );
   }
