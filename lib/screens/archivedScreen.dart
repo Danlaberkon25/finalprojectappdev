@@ -26,8 +26,9 @@ class _ArchivedScreen extends State<ArchivedScreen> {
     return Scaffold(
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
+        backgroundColor: Colors.blue,
         title: Text('Archive Dashboard',
-          style: TextStyle(fontFamily: 'roboto',fontWeight: FontWeight.bold),),
+          style: TextStyle(fontFamily: 'roboto',fontWeight: FontWeight.bold,color: Colors.white),),
         centerTitle: true,
 
       ),
@@ -118,11 +119,11 @@ class _ArchivedScreen extends State<ArchivedScreen> {
                                     animation: true,
                                     lineHeight: 10.0,
                                     animationDuration: 2000,
-                                    percent: 0.9,
+                                    percent:Archivedmethod().getPercentage(archive),
                                     center: Text("${method.gettingPercentage(archive)}%",
                                       style: TextStyle(fontSize: 7),),
                                     linearStrokeCap: LinearStrokeCap.roundAll,
-                                    progressColor: Colors.greenAccent,
+                                    progressColor: Colors.blue,
                                   ),
                                 ),
                                 Padding(

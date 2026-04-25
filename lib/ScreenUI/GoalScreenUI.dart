@@ -4,7 +4,6 @@ import 'package:myfirstapp/models/goal.dart';
 import 'package:myfirstapp/screens/HomeScreen.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:myfirstapp/dialogs/addSavingDialog.dart';
-import 'package:provider/provider.dart';
 import 'package:myfirstapp/providers/GoalProvider.dart';
 import 'package:myfirstapp/dialogs/editGoalDialog.dart';
 import 'package:myfirstapp/method/GoalScreenMethod.dart';
@@ -325,7 +324,6 @@ class _WithdrawSavingButton extends State<WithdrawSavingButton>{
       }else{
         showDialog(context: context, builder: (_) => withdrawSavingDialog(goal: goal));
       }
-
     },
       child: Text('Withdraw Savings',
         style: TextStyle(color: Colors.redAccent),
@@ -334,4 +332,160 @@ class _WithdrawSavingButton extends State<WithdrawSavingButton>{
           backgroundColor: Colors.pink[100]),);
   }
 }
+/// No History Widget
+Widget NoHistoryWidget(){
+  return Column(
+      children: [
+        Padding(padding: EdgeInsets.only(top: 100),
+          child: Image.asset('assets/noo-Goal.gif',
+              height: 200,
+              width: 200),),
+        Center(
+            child: Padding(padding: EdgeInsets.all(20),
+              child: Text('No History',
+                style: TextStyle(fontSize: 20),),
+            )
+        )
+  ]
+  );
+}
+/// Goal History Container With Note Creating State
+class GoalHistoryContainerWithNote extends StatefulWidget{
+  final Goal goal;
+  final int index;
+  const GoalHistoryContainerWithNote({super.key,required this.goal,required this.index});
+  @override
+  _GoalHistoryContainerWithNote createState() => _GoalHistoryContainerWithNote();
+}
+/// Goal History Container With Note UI
+class _GoalHistoryContainerWithNote extends State<GoalHistoryContainerWithNote>{
+  @override
+  Widget build(BuildContext context) {
+    final history = widget.goal.goalHistory[widget.index];
+    return Container(
+      margin: const EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        boxShadow: const [
+          BoxShadow(
+            color: Color.fromRGBO(50, 50, 93, 0.25),
+            blurRadius: 27,
+            spreadRadius: -5,
+            offset: Offset(0, 13),
+          ),
+          BoxShadow(
+            color: Color.fromRGBO(0, 0, 0, 0.3),
+            blurRadius: 16,
+            spreadRadius: -8,
+            offset: Offset(0, 8),
+          )
+        ],
+        borderRadius: BorderRadius.circular(20),
+        color: Colors.white,
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(left: 10, top: 5),
+                child: Text('${history['date']}'),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(right: 30, top: 5),
+                child: GoalScreenMethod().historyGoalAmountStyle(widget.goal, widget.index),
+              ),
+            ],
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 2, bottom: 1, left: 10),
+            child: Text('Note: ${history['note']}'),
+          ),
+        ],
+      ),
+    );
+  }
+}
+/// Goal History Container Without Note Creating State
+class GoalHistoryContainerWithoutNote extends StatefulWidget{
+  final Goal goal;
+  final int index;
+  const GoalHistoryContainerWithoutNote({super.key,required this.goal,required this.index});
+  @override
+  _GoalHistoryContainerWithoutNote createState() => _GoalHistoryContainerWithoutNote();
 
+}
+//// Goal History Container Without Note UI
+class _GoalHistoryContainerWithoutNote extends State<GoalHistoryContainerWithoutNote>{
+  @override
+  Widget build(BuildContext context) {
+    final history = widget.goal.goalHistory[widget.index];
+    return Container(
+      margin: const EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        boxShadow: const [
+          BoxShadow(
+            color: Color.fromRGBO(50, 50, 93, 0.25),
+            blurRadius: 27,
+            spreadRadius: -5,
+            offset: Offset(0, 13),
+          ),
+          BoxShadow(
+            color: Color.fromRGBO(0, 0, 0, 0.3),
+            blurRadius: 16,
+            spreadRadius: -8,
+            offset: Offset(0, 8),
+          )
+        ],
+        borderRadius: BorderRadius.circular(5),
+        color: Colors.white,
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(left: 10, top: 5),
+                child: Text('${history['date']}'),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(right: 30, top: 5, bottom: 10),
+                child: GoalScreenMethod().historyGoalAmountStyle(widget.goal, widget.index),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+///History Goal Amount Widget
+Widget historyGoalAmountAddSavings(currency,amount){
+  final formatter = NumberFormat('#,##0.00');
+  return Text(
+    '+ ${currency} ${formatter.format(amount)}',
+    style: TextStyle(
+        color: Colors.green,
+        fontSize: 16,
+        fontFamily: 'roboto',
+        fontWeight: FontWeight.bold
+    ),
+  );
+}
+
+Widget historyGoalAmountWithdraw(currency,amount){
+  final formatter = NumberFormat('#,##0.00');
+  return Text(
+    '- ${currency} ${formatter.format(amount)}',
+    style: const TextStyle(
+      color: Colors.redAccent,
+      fontSize: 16,
+      fontFamily: 'roboto',
+      fontWeight: FontWeight.bold,
+    ),
+  );
+}

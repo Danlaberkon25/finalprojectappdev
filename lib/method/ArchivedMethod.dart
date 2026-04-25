@@ -15,13 +15,19 @@ class Archivedmethod {
     }
   }
 
-  double gettingPercentage(archive) {
-    final getPercentage = (archive.goalProgress / archive.goalAmount) * 100;
-    if (archive.goalAmount != 0) {
-      return getPercentage;
-    } else {
+  double gettingPercentage(goal) {
+    final getPercentage = (goal.goalProgress / goal.goalAmount) * 100;
+    if(goal.goalAmount != 0){
+      if(getPercentage > 100){
+        return 100;
+      }else{
+        return getPercentage;
+      }
+    }else{
       return 0;
+
     }
+
   }
 
   double getPercentage(goal) {

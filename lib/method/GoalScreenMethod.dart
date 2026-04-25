@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:myfirstapp/dialogs/withdrawSavingDialog.dart';
-
-import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:myfirstapp/ScreenUI/GoalScreenUI.dart';
 
 class GoalScreenMethod {
   final formatter = NumberFormat('#,##0.00');
@@ -24,8 +23,8 @@ class GoalScreenMethod {
 
   // Color style for Saved
   Color colorValidationSaved(goal) {
-    if (goal.goalProgress > goal.goalAmount) {
-      return Colors.redAccent;
+    if (goal.goalProgress >= goal.goalAmount) {
+      return Colors.green;
     } else {
       return Colors.black;
     }
@@ -49,32 +48,31 @@ class GoalScreenMethod {
     }
   }
 
-  /// History Goal Amount Style
+
+
+  /// History Goal Amount Style if red or green color style
   Widget historyGoalAmountStyle(goal, int index) {
     final history = goal.goalHistory[index];
-    final amount = int.tryParse(history['amount']);
-    print('hi ${amount}');
+
+    final amount = int.tryParse(history['amount']) ?? 0;
+    final formatter = NumberFormat('#,##0.00');
+    print('helloooo ${historyGoalAmountAddSavings(goal.currency, amount)}');
 
     if (history['operator'] == 'add') {
-      return Text(
-        '+ ${goal.currency} ${formatter.format(amount)}',
-        style: const TextStyle(
-            color: Colors.green,
-            fontSize: 16,
-            fontFamily: 'roboto',
-            fontWeight: FontWeight.bold
-        ),
-      );
+
+      return historyGoalAmountAddSavings(goal.currency, amount);
     } else {
-      return Text(
-        '- ${goal.currency} ${formatter.format(amount)}',
-        style: const TextStyle(
-            color: Colors.redAccent,
-            fontSize: 16,
-            fontFamily: 'roboto',
-            fontWeight: FontWeight.bold
-        ),
-      );
+      return historyGoalAmountWithdraw(goal.currency, amount);
+    }
+  }
+
+  /// History container Note Condition
+  Widget historyContainerCondition(goal, int index) {
+    final history = goal.goalHistory[index];
+    if (history['note'] == ' ' || history['note'].length == 0) {
+      return GoalHistoryContainerWithoutNote(goal: goal, index: index);
+    } else {
+      return GoalHistoryContainerWithNote(goal: goal, index: index);
     }
   }
 
@@ -87,7 +85,6 @@ class GoalScreenMethod {
     }
   }
 
-  ////Message Box for Withdraw Savings
   void showMessageBox(BuildContext context) {
     showDialog(
 
@@ -100,104 +97,20 @@ class GoalScreenMethod {
               style: TextStyle(fontSize: 15),),),
           actions: <Widget>[
             Center(
-                child: ElevatedButton(onPressed: (){
-                  Navigator.of(context).pop();
-                }, child: Text('Okay')),
-              ),
+              child: ElevatedButton(onPressed: (){
+                Navigator.of(context).pop();
+              }, child: Text('Okay')),
+            ),
           ],
         );
       },
     );
   }
-
-
-  /// History container
-  Widget historyContainer(goal, int index) {
-    final item = goal.goalHistory[index];
-    if (item['note'] == ' ' || item['note'].length == 0) {
-      return Container(
-        margin: const EdgeInsets.all(10),
-        decoration: BoxDecoration(
-          boxShadow: const [
-            BoxShadow(
-              color: Color.fromRGBO(50, 50, 93, 0.25),
-              blurRadius: 27,
-              spreadRadius: -5,
-              offset: Offset(0, 13),
-            ),
-            BoxShadow(
-              color: Color.fromRGBO(0, 0, 0, 0.3),
-              blurRadius: 16,
-              spreadRadius: -8,
-              offset: Offset(0, 8),
-            )
-          ],
-          borderRadius: BorderRadius.circular(5),
-          color: Colors.white,
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 10, top: 5),
-                  child: Text('${item['date']}'),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(right: 30, top: 5, bottom: 10),
-                  child: GoalScreenMethod().historyGoalAmountStyle(goal, index),
-                ),
-              ],
-            ),
-          ],
-        ),
-      );
-    } else {
-      return Container(
-        margin: const EdgeInsets.all(10),
-        decoration: BoxDecoration(
-          boxShadow: const [
-            BoxShadow(
-              color: Color.fromRGBO(50, 50, 93, 0.25),
-              blurRadius: 27,
-              spreadRadius: -5,
-              offset: Offset(0, 13),
-            ),
-            BoxShadow(
-              color: Color.fromRGBO(0, 0, 0, 0.3),
-              blurRadius: 16,
-              spreadRadius: -8,
-              offset: Offset(0, 8),
-            )
-          ],
-          borderRadius: BorderRadius.circular(20),
-          color: Colors.white,
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 10, top: 5),
-                  child: Text('${item['date']}'),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(right: 30, top: 5),
-                  child: GoalScreenMethod().historyGoalAmountStyle(goal, index),
-                ),
-              ],
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 2, bottom: 1, left: 10),
-              child: Text('Note: ${item['note']}'),
-            ),
-          ],
-        ),
-      );
-    }
-  }
 }
+
+
+
+
+
+
+

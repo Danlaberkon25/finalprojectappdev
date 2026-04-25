@@ -84,26 +84,16 @@ class _GoalScreenState extends State<GoalScreen> {
               )
             ],
           ),
-            if (goal.goalHistory.length == 0) Column(
-                children: [
-                  Padding(padding: EdgeInsets.only(top: 100),
-                    child: Image.asset('assets/noo-Goal.gif',
-                        height: 200,
-                        width: 200),),
-                  Center(
-                      child: Padding(padding: EdgeInsets.all(20),
-                        child: Text('No History',
-                          style: TextStyle(fontSize: 20),),
-                      ))
-                ]
-            ) else
+            if (goal.goalHistory.length == 0)
+             NoHistoryWidget()
+            else
               ListView.builder(
                   itemCount: history.length,
                   itemBuilder: (context, index) {
                     final historyIndex = history[index];
                     print('hello${history[index]['amount']}');
                     print('${historyIndex}');
-                    return method.historyContainer(goal, index);
+                    return method.historyContainerCondition(goal, index);
                   }
               ),
           ],
