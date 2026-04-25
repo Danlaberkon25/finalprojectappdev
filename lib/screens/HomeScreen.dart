@@ -165,16 +165,16 @@ class _HomePage extends State<HomePage> {
                                 ),
                                 Padding(
                                   padding: EdgeInsets.all(0),
-                                  child: new LinearPercentIndicator(
+                                  child: LinearPercentIndicator(
                                     width: 250,
                                     barRadius: Radius.circular(10),
                                     animation: true,
                                     lineHeight: 10.0,
                                     animationDuration: 2000,
-                                    percent: 0.9,
+                                    backgroundColor: Colors.grey[300],
+                                    percent: homeMethod.getPercentage(goal),
                                     center: Text("${homeMethod.gettingPercentage(goal)}%",
                                     style: TextStyle(fontSize: 7),),
-                                    linearStrokeCap: LinearStrokeCap.roundAll,
                                     progressColor: Colors.greenAccent,
                                   ),
                                 ),

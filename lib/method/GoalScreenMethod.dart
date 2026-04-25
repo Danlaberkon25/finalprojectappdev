@@ -1,7 +1,11 @@
+import 'dart:ffi';
+import 'package:flutter/material.dart';
+import 'package:myfirstapp/dialogs/withdrawSavingDialog.dart';
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-class MethodEditGoal {
+class GoalScreenMethod {
   final formatter = NumberFormat('#,##0.00');
 
   /// function for getting percentage
@@ -46,26 +50,32 @@ class MethodEditGoal {
     }
   }
 
-  /// History Validation
-  Widget historyValidationContainer(goal, int index) {
+  /// History Goal Amount Style
+  Widget historyGoalAmountStyle(goal, int index) {
     final item = goal.goalHistory[index];
 
     if (item['operator'] == 'add') {
       return Text(
-        '+ ${goal.currency} ${double.parse(item['amount'].toString()).toStringAsFixed(2)}',
+        '+ ${goal.currency} ${double
+            .parse(item['amount'].toString())
+            .toStringAsFixed(2)}',
         style: const TextStyle(
-          color: Colors.green,
-          fontSize: 16,
-          fontWeight: FontWeight.bold,
+            color: Colors.green,
+            fontSize: 16,
+            fontFamily: 'roboto',
+            fontWeight: FontWeight.bold
         ),
       );
     } else {
       return Text(
-        '- ${goal.currency} ${double.parse(item['amount'].toString()).toStringAsFixed(2)}',
+        '- ${goal.currency} ${double
+            .parse(item['amount'].toString())
+            .toStringAsFixed(2)}',
         style: const TextStyle(
-          color: Colors.redAccent,
-          fontSize: 16,
-          fontWeight: FontWeight.bold,
+            color: Colors.redAccent,
+            fontSize: 16,
+            fontFamily: 'roboto',
+            fontWeight: FontWeight.bold
         ),
       );
     }
@@ -124,13 +134,17 @@ class MethodEditGoal {
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Padding(padding: EdgeInsets.only(left: 10,top: 5),
-                    child: Text('Saved',style: TextStyle(fontSize: 15),),),
-                    Padding(padding: EdgeInsets.fromLTRB(10,3,0,0),
-                    child: Text(
-                      '${goal.currency} ${formatter.format(goal.goalProgress)}',
-                      style: TextStyle(fontSize: 12,color: colorValidationSaved(goal)),
-                    ),),
+                    Padding(padding: EdgeInsets.only(left: 10, top: 5),
+                      child: Text('Saved', style: TextStyle(fontSize: 15),),),
+                    Padding(padding: EdgeInsets.fromLTRB(10, 3, 0, 0),
+                      child: Text(
+                        '${goal.currency} ${formatter.format(
+                            goal.goalProgress)}',
+                        style: TextStyle(fontWeight: FontWeight.bold,
+                            fontSize: 12,
+                            color: colorValidationSaved(goal),
+                            fontFamily: 'roboto'),
+                      ),),
 
                   ]
               ),
@@ -170,14 +184,18 @@ class MethodEditGoal {
                   ]
               ),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(padding: EdgeInsets.only(left: 10,top: 5),
-                      child:Text('Goal Amount', style: TextStyle(fontSize: 15),),),
-                  Padding(padding: EdgeInsets.only(left: 10,top:3),
-                  child: Text('${goal.currency} ${formatter.format(goal.goalAmount)}',
-                  style: TextStyle(fontSize: 12),),)
-                ]
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(padding: EdgeInsets.only(left: 10, top: 5),
+                      child: Text(
+                        'Goal Amount', style: TextStyle(fontSize: 15),),),
+                    Padding(padding: EdgeInsets.only(left: 10, top: 3),
+                      child: Text(
+                        '${goal.currency} ${formatter.format(goal.goalAmount)}',
+                        style: TextStyle(fontSize: 12,
+                            fontFamily: 'roboto',
+                            fontWeight: FontWeight.bold),),)
+                  ]
               ),
             )
           ],
@@ -187,11 +205,33 @@ class MethodEditGoal {
     );
   }
 
+  ////Message Box for Withdraw Savings
+  void showMessageBox(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Center(child: Icon(Icons.warning,color: Colors.redAccent,),),
+          content: Padding(padding: EdgeInsets.only(left: 10,top: 10),
+            child:Text("You don't have enough balance to withdraw savings!",
+              style: TextStyle(fontSize: 15),),),
+          actions: <Widget>[
+            Center(
+                child: ElevatedButton(onPressed: (){
+                  Navigator.of(context).pop();
+                }, child: Text('Okay')),
+              ),
+          ],
+        );
+      },
+    );
+  }
+
 
   /// History container
   Widget historyContainer(goal, int index) {
     final item = goal.goalHistory[index];
-    if(item['note'] == ' ' || item['note'].length == 0){
+    if (item['note'] == ' ' || item['note'].length == 0) {
       return Container(
         margin: const EdgeInsets.all(10),
         decoration: BoxDecoration(
@@ -223,16 +263,15 @@ class MethodEditGoal {
                   child: Text('${item['date']}'),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(right: 30, top: 5,bottom: 10),
-                  child: historyValidationContainer(goal, index),
+                  padding: const EdgeInsets.only(right: 30, top: 5, bottom: 10),
+                  child: GoalScreenMethod().historyGoalAmountStyle(goal, index),
                 ),
               ],
             ),
           ],
         ),
-
       );
-    }else{
+    } else {
       return Container(
         margin: const EdgeInsets.all(10),
         decoration: BoxDecoration(
@@ -265,7 +304,7 @@ class MethodEditGoal {
                 ),
                 Padding(
                   padding: const EdgeInsets.only(right: 30, top: 5),
-                  child: historyValidationContainer(goal, index),
+                  child: GoalScreenMethod().historyGoalAmountStyle(goal, index),
                 ),
               ],
             ),

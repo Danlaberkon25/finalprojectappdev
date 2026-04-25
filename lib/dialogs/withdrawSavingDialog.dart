@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:myfirstapp/method/GoalScreenMethod.dart';
 import 'package:myfirstapp/models/goal.dart';
 import 'package:provider/provider.dart';
 import 'package:myfirstapp/providers/GoalProvider.dart';
@@ -26,7 +27,6 @@ class _withdrawSavingDialogState extends State<withdrawSavingDialog> {
       ),
       content: SizedBox(
         width: 280,
-        height: 230,
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -34,7 +34,7 @@ class _withdrawSavingDialogState extends State<withdrawSavingDialog> {
               height: 49,
               width: 80,),
             ),
-            Padding(padding: EdgeInsets.all(2),
+            Padding(padding: EdgeInsets.all(5),
               child: TextField(
                 keyboardType: TextInputType.number,
                 controller: _goalAmount,
@@ -45,7 +45,7 @@ class _withdrawSavingDialogState extends State<withdrawSavingDialog> {
                 ),
               ),
             ),
-            Padding(padding: EdgeInsets.all(2),
+            Padding(padding: EdgeInsets.all(5),
               child: TextField(
                 controller: _note,
                 decoration: InputDecoration(
@@ -62,21 +62,26 @@ class _withdrawSavingDialogState extends State<withdrawSavingDialog> {
                 ElevatedButton(onPressed: (){
                   Navigator.pop(context);
                 }, child: Text('Cancel',
-                    style: TextStyle(color: Colors.red[400])),
-                  style: ElevatedButton.styleFrom(backgroundColor: Colors.pink[100]),
+                    style: TextStyle(color: Colors.black)),
+                  style: ElevatedButton.styleFrom(),
                 ),
                 ElevatedButton(onPressed: (){
+                  if(int.tryParse(_goalAmount.text)! > widget.goal.goalProgress){
+                    GoalScreenMethod().showMessageBox(context);
+                  }else{
+                    Provider.of<GoalProvider>(context,listen: false)
+                        .WithdrawSavings(widget.goal,int.parse(_goalAmount.text),'withdraw',_note.text);
+                    Navigator.pop(context);
+                  }
 
-                  Provider.of<GoalProvider>(context,listen: false)
-                      .WithdrawSavings(widget.goal,int.parse(_goalAmount.text),'withdraw',_note.text);
 
-                  Navigator.pop(context);
+
 
                 },
                   child: Text('Withdraw',
 
-                      style: TextStyle(color: Colors.white)),
-                  style: ElevatedButton.styleFrom(backgroundColor: Colors.blueAccent),
+                      style: TextStyle(color: Colors.redAccent)),
+                  style: ElevatedButton.styleFrom(backgroundColor: Colors.pink[100]),
                 ),
               ],
             )

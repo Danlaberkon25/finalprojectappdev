@@ -24,15 +24,35 @@ class Homescreenmethod {
     }
   }
 
+  /// Getting Percentage of the goal to display on the progress bar
   double gettingPercentage(goal) {
     final getPercentage = (goal.goalProgress / goal.goalAmount) * 100;
     if(goal.goalAmount != 0){
-      return getPercentage;
+      if(getPercentage > 100){
+        return 100;
+      }else{
+        return getPercentage;
+      }
     }else{
       return 0;
 
     }
 
+  }
+
+  /// getting 
+  double getPercentage(goal) {
+    if (goal.goalAmount == 0) return 0.0;
+
+    final getPercentage = goal.goalProgress / goal.goalAmount;
+
+    if (getPercentage >= 1) {
+      return 1.0;
+    } else if (getPercentage <= 0) {
+      return 0.0;
+    } else {
+      return double.parse(getPercentage.toStringAsFixed(1));
+    }
   }
 
 

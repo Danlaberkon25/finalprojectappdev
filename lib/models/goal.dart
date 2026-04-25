@@ -3,7 +3,6 @@ class Goal {
   String goalName;
   int goalAmount;
   int goalProgress;
-  String note;
   String currency;
   List<Map<String,dynamic>> goalHistory;
   bool isArchived;
@@ -14,7 +13,6 @@ class Goal {
     required this.goalName,
     required this.goalAmount,
     required this.goalProgress,
-    required this.note,
     required this.currency,
     required this.goalHistory,
     required this.isArchived,
@@ -26,7 +24,6 @@ class Goal {
       goalName: json['goalName'],
       goalAmount: json['goalAmount'],
       goalProgress: json['goalProgress'],
-      note: json['note'],
       currency: json['currency'],
       goalHistory: List<Map<String, dynamic>>.from(
         (json['goalHistory'] ?? []).map(
@@ -43,7 +40,6 @@ class Goal {
         'goalName': goalName,
         'goalAmount': goalAmount,
         'goalProgress': goalProgress,
-        'note': note,
         'currency': currency,
         'goalHistory' : goalHistory,
         'isArchived': isArchived,

@@ -40,7 +40,7 @@ class _ArchivedScreen extends State<ArchivedScreen> {
                   child: Image.asset('assets/milk-hi.gif'),),
               ),
               Center(child: Padding(padding: EdgeInsets.only(top: 40),
-                  child: Text("Seems like you are new, Let's create your first goal",
+                  child: Text("Seems like you don't have archived goal!",
                     style: TextStyle(fontSize: 15),)),)
             ],
           )

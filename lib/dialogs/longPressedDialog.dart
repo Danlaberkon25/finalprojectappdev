@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:myfirstapp/dialogs/editGoalDialog.dart';
-import 'package:myfirstapp/providers/selectionProvider.dart';
 import 'package:provider/provider.dart';
 import 'package:myfirstapp/providers/GoalProvider.dart';
 import 'package:myfirstapp/models/goal.dart';
-import 'package:myfirstapp/models/currency.dart';
 
 class Longpresseddialog extends StatefulWidget {
   final Goal goal;

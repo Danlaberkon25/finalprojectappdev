@@ -32,12 +32,11 @@ class _GoalScreenState extends State<GoalScreen> {
     final goal = provider.goals.firstWhere(
           (goal) => goal == widget.goal,
     );
-    final method = MethodEditGoal();
+    final method = GoalScreenMethod();
     final dateFormat = DateFormat('dd/MM/yyyy hh:mm a').format(DateTime.now());
     final goalName = goal.goalName;
     final goalAmount = goal.goalAmount;
     final goalProgress = goal.goalProgress;
-    final note = goal.note;
     final currency = goal.currency;
     final history = goal.goalHistory;
 
@@ -49,7 +48,8 @@ class _GoalScreenState extends State<GoalScreen> {
           resizeToAvoidBottomInset: true,
           appBar: AppBar(
             backgroundColor: Colors.white,
-            title: Text("${goalName}"),
+            title: Text("${goalName}",
+            style: TextStyle(fontFamily: 'roboto', fontWeight: FontWeight.bold),),
             centerTitle: true,
             leading: IconButton(onPressed: () {
               Navigator.pop(context);
@@ -110,9 +110,20 @@ class _GoalScreenState extends State<GoalScreen> {
                           child: CircularPercentIndicator(
                             radius: 100.0,
                             lineWidth: 20,
+
                             percent: method.gettingPercentage(goal),
-                            center: Image.asset(
-                              'assets/milk-mocha.gif', width: 100,),
+                            center: Column(
+                              children: [
+                                
+                                Padding(padding: EdgeInsets.only(top: 45),
+                                  child: Image.asset(
+                                    'assets/milk-mocha.gif', width: 100,),
+                                ),
+                                Padding(padding: EdgeInsets.only(top: 5),
+                                child: Text('${method.gettingPercentage(goal) * 100}%'),),
+
+                              ],
+                            ),
                             backgroundColor: Colors.redAccent,
                             progressColor: Colors.blueAccent,
                           ),
@@ -147,16 +158,24 @@ class _GoalScreenState extends State<GoalScreen> {
                             style: ElevatedButton.styleFrom(
                                 backgroundColor: Colors.grey[50]),),
                           ElevatedButton(onPressed: () {
-                            showDialog(context: context,
-                                builder: (_) => withdrawSavingDialog(goal: goal));
+                            if(goal.goalProgress <= 0){
+                              GoalScreenMethod().showMessageBox(context);
+                            }else{
+                              showDialog(context: context, builder: (_) => withdrawSavingDialog(goal: goal));
+                            }
+
                           },
                             child: Text('Withdraw Savings',
                               style: TextStyle(color: Colors.redAccent),
                             ),
                             style: ElevatedButton.styleFrom(
                                 backgroundColor: Colors.pink[100]),),
+                              
+                          
                         ],
+                        
                       ),
+                      SizedBox(height: 20,)
                     ],
                   ),
                 )

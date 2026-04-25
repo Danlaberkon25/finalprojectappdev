@@ -23,4 +23,18 @@ class Archivedmethod {
       return 0;
     }
   }
+
+  double getPercentage(goal) {
+    if (goal.goalAmount == 0) return 0.0;
+
+    final getPercentage = goal.goalProgress / goal.goalAmount;
+
+    if (getPercentage >= 1) {
+      return 1.0;
+    } else if (getPercentage <= 0) {
+      return 0.0;
+    } else {
+      return double.parse(getPercentage.toStringAsFixed(1));
+    }
+  }
 }

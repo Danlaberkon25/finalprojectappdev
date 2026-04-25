@@ -67,8 +67,8 @@ class _AddSavingDialogState extends State<AddSavingDialog> {
                 ElevatedButton(onPressed: (){
                   Navigator.pop(context);
                 }, child: Text('Cancel',
-                    style: TextStyle(color: Colors.white)),
-                  style: ElevatedButton.styleFrom(backgroundColor: Colors.blueAccent),
+                    style: TextStyle(color: Colors.black)),
+                  style: ElevatedButton.styleFrom(backgroundColor: Colors.grey[50]),
                 ),
                 ElevatedButton(onPressed: (){
 
@@ -80,8 +80,8 @@ class _AddSavingDialogState extends State<AddSavingDialog> {
                 },
                   child: Text('Add',
 
-                      style: TextStyle(color: Colors.white)),
-                  style: ElevatedButton.styleFrom(backgroundColor: Colors.blueAccent),
+                      style: TextStyle(color: Colors.green)),
+                  style: ElevatedButton.styleFrom(backgroundColor: Colors.grey[50]),
                 ),
               ],
             )

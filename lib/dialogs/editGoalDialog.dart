@@ -22,7 +22,6 @@ class _EditGoalDialogState extends State<EditGoalDialog> {
     final goal = widget.goal;
     TextEditingController _goalName = TextEditingController(text: goal.goalName);
     TextEditingController _goalAmount = TextEditingController(text: '${goal.goalAmount}');
-    TextEditingController _note = TextEditingController(text: '${goal.note}');
     final selectedCurrency = context.watch<SelectedCurrencyProvider>().selectedcurrency;
     return AlertDialog(
       backgroundColor: Colors.white,
@@ -59,16 +58,6 @@ class _EditGoalDialogState extends State<EditGoalDialog> {
                 decoration: InputDecoration(
                   labelStyle: TextStyle(color: Colors.blueAccent),
                   labelText: 'Goal Amount',
-                  border: OutlineInputBorder(),
-                ),
-              ),
-            ),
-            Padding(padding: EdgeInsets.all(2),
-              child: TextField(
-                controller: _note,
-                decoration: InputDecoration(
-                  labelStyle: TextStyle(color: Colors.blueAccent),
-                  labelText: 'Note',
                   border: OutlineInputBorder(),
                 ),
               ),
@@ -116,7 +105,7 @@ class _EditGoalDialogState extends State<EditGoalDialog> {
                 ),
                 ElevatedButton(onPressed: (){
                   Provider.of<GoalProvider>(context,listen: false)
-                      .UpdateGoal(goal,_goalName.text,int.parse(_goalAmount.text),_note.text,selectedCurrency);
+                      .UpdateGoal(goal,_goalName.text,int.parse(_goalAmount.text),selectedCurrency);
                   Navigator.pop(context);
                 },
                   child: Text('Done',

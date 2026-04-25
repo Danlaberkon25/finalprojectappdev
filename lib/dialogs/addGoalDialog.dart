@@ -3,7 +3,6 @@ import 'package:myfirstapp/models/goal.dart';
 import 'package:provider/provider.dart';
 import 'package:myfirstapp/providers/GoalProvider.dart';
 import 'package:myfirstapp/dialogs/currencyDialog.dart';
-import 'currencyDialog.dart';
 import 'package:myfirstapp/providers/selectionProvider.dart';
 class AddGoalDialog extends StatefulWidget {
   const AddGoalDialog({super.key});
@@ -22,7 +21,6 @@ class _AddGoalDialogState extends State<AddGoalDialog> {
   Widget build(BuildContext context) {
 
     final selectedcurrency = context.watch<SelectedCurrencyProvider>().selectedcurrency;
-    final provider = context.watch<GoalProvider>();
     return AlertDialog(
       backgroundColor: Colors.white,
       title: Center(
@@ -32,7 +30,6 @@ class _AddGoalDialogState extends State<AddGoalDialog> {
       ),
       content: SizedBox(
           width: 280,
-          height: 368,
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -40,7 +37,7 @@ class _AddGoalDialogState extends State<AddGoalDialog> {
                 height: 49,
                 width: 80,),
               ),
-              Padding(padding: EdgeInsets.all(2),
+              Padding(padding: EdgeInsets.all(5),
                 child: TextField(
                   controller: _goalName,
                   decoration: InputDecoration(
@@ -50,7 +47,7 @@ class _AddGoalDialogState extends State<AddGoalDialog> {
                   ),
                 ),
               ),
-              Padding(padding: EdgeInsets.all(2),
+              Padding(padding: EdgeInsets.all(5),
                 child: TextField(
 
                   keyboardType: TextInputType.number,
@@ -62,21 +59,12 @@ class _AddGoalDialogState extends State<AddGoalDialog> {
                   ),
                 ),
               ),
-              Padding(padding: EdgeInsets.all(2),
-                child: TextField(
-                  controller: _note,
-                  decoration: InputDecoration(
-                    labelStyle: TextStyle(color: Colors.blueAccent),
-                    labelText: 'Note',
-                    border: OutlineInputBorder(),
-                  ),
-                ),
-              ),
-              Padding(padding: EdgeInsets.all(2),
+            
+              Padding(padding: EdgeInsets.all(5),
                 child: TextField(
                   readOnly: true,
                   decoration: InputDecoration(
-                    suffixIcon: Padding(padding: EdgeInsets.all(2),
+                    suffixIcon: Padding(padding: EdgeInsets.all(5),
                       child: Container(
                         width: 100,
                         height: 50,
@@ -115,21 +103,17 @@ class _AddGoalDialogState extends State<AddGoalDialog> {
                   ),
                   ElevatedButton(onPressed: (){
 
-                    if (_goalName.text == '' && _goalAmount.text == '' && _note.text == ''){
+                    if (_goalName.text == '' && _goalAmount.text == ''){
                       _goalName.text = 'Unitlted';
                       _goalAmount.text = '0';
-                      _note.text = '';
                     }else if(_goalAmount.text == ''){
                       _goalAmount.text = '0';
-                    }else if(_note.text == ''){
-                      _note.text = '';
                     }
                     final goal = Goal(
                       id:DateTime.now()!.toString(),
                       goalName: _goalName.text,
                       goalAmount:int.parse(_goalAmount.text) ?? 0,
                       goalProgress:0,
-                      note: _note.text ?? '',
                       currency:selectedcurrency,
                       goalHistory: [],
                       isArchived: false,

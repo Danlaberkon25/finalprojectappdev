@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:localstorage/localstorage.dart';
 import 'package:myfirstapp/models/goal.dart';
 import 'package:intl/intl.dart';
+import 'package:myfirstapp/method/GoalScreenMethod.dart';
 
 class GoalProvider with ChangeNotifier {
   final LocalStorage storage;
@@ -14,6 +15,7 @@ class GoalProvider with ChangeNotifier {
 
   GoalProvider(this.storage){
     _loadGoalFromStorage();
+    _loadArchivedFromStorage();
   }
   void _loadGoalFromStorage(){
     final goalsStorage = storage.getItem('goals');
@@ -90,7 +92,7 @@ class GoalProvider with ChangeNotifier {
   void AddSavings(goal, int amount,String operator,note) {
     final dateFormat = DateFormat.yMMMMd('en_US').add_jm().format(DateTime.now());
     goal.goalProgress += amount;
-    goal.goalHistory!.add({
+    goal.goalHistory.add({
       'date': dateFormat,
       'amount': amount.toString(),
       'operator':'add',
@@ -102,22 +104,24 @@ class GoalProvider with ChangeNotifier {
   }
 
   void WithdrawSavings(goal,int amount,String operator,note){
-    goal.goalProgress -= amount;
-    final dateFormat = DateFormat('dd/MM/yyyy hh:mm a').format(DateTime.now());
-    goal.goalHistory!.add({
-      'date': dateFormat,
-      'amount': amount.toString(),
-      'operator':'withdraw',
-      'note':note,
-    });
-    _saveGoalToStorage();
-    notifyListeners();
+      goal.goalProgress -= amount;
+      final dateFormat = DateFormat.yMMMMd('en_US').add_jm().format(DateTime.now());
+      goal.goalHistory.add({
+        'date': dateFormat,
+        'amount': amount.toString(),
+        'operator':'withdraw',
+        'note':note,
+      });
+      _saveGoalToStorage();
+      notifyListeners();
+
+
+
   }
 
-  void UpdateGoal(goal,String name,int amount,String note,String currency){
+  void UpdateGoal(goal,String name,int amount,String currency){
       goal.goalName = name;
       goal.goalAmount = amount;
-      goal.note = note;
       goal.currency = currency;
       _saveGoalToStorage();
       notifyListeners();
