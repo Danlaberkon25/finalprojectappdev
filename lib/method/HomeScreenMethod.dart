@@ -39,7 +39,7 @@ class Homescreenmethod {
 
   }
 
-  /// getting 
+  /// getting Percentage like 0.0 to 1
   double getPercentage(goal) {
     if (goal.goalAmount == 0) return 0.0;
 

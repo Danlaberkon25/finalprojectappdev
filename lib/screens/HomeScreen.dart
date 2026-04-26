@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:myfirstapp/method/HomeScreenMethod.dart';
-import 'package:myfirstapp/ScreenUI/HomeScreenUI.dart';
+import 'package:GoSaver/method/HomeScreenMethod.dart';
+import 'package:GoSaver/ScreenUI/HomeScreenUI.dart';
 
 class HomePage extends StatefulWidget {
   @override

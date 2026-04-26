@@ -1,9 +1,9 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:localstorage/localstorage.dart';
-import 'package:myfirstapp/models/goal.dart';
+import 'package:GoSaver/models/goal.dart';
 import 'package:intl/intl.dart';
-import 'package:myfirstapp/method/GoalScreenMethod.dart';
+import 'package:GoSaver/method/GoalScreenMethod.dart';
 
 class GoalProvider with ChangeNotifier {
   final LocalStorage storage;

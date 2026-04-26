@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:myfirstapp/dialogs/addGoalDialog.dart';
-import 'package:myfirstapp/dialogs/longPressedDialog.dart';
-import 'package:myfirstapp/method/ArchivedMethod.dart';
-import 'package:myfirstapp/providers/GoalProvider.dart';
-import 'package:myfirstapp/screens/goalScreen.dart';
+import 'package:GoSaver/dialogs/addGoalDialog.dart';
+import 'package:GoSaver/dialogs/longPressedDialog.dart';
+import 'package:GoSaver/method/ArchivedMethod.dart';
+import 'package:GoSaver/providers/GoalProvider.dart';
+import 'package:GoSaver/screens/goalScreen.dart';
 import 'package:provider/provider.dart';
-import 'package:myfirstapp/method/HomeScreenMethod.dart';
-import 'package:myfirstapp/dialogs/archivedLongPressedDialog.dart';
+import 'package:GoSaver/method/HomeScreenMethod.dart';
+import 'package:GoSaver/dialogs/archivedLongPressedDialog.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:intl/intl.dart';
 class ArchivedScreen extends StatefulWidget {

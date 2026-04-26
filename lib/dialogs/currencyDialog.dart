@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:myfirstapp/providers/selectionProvider.dart';
+import 'package:GoSaver/providers/selectionProvider.dart';
 import 'package:provider/provider.dart';
-import 'package:myfirstapp/providers/GoalProvider.dart';
-import 'package:myfirstapp/models/goal.dart';
-import 'package:myfirstapp/models/currency.dart';
+import 'package:GoSaver/providers/GoalProvider.dart';
+import 'package:GoSaver/models/goal.dart';
+import 'package:GoSaver/models/currency.dart';
 
 class CurrencyDialog extends StatefulWidget {
   const CurrencyDialog({super.key});

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:myfirstapp/method/GoalScreenMethod.dart';
-import 'package:myfirstapp/models/goal.dart';
+import 'package:GoSaver/method/GoalScreenMethod.dart';
+import 'package:GoSaver/models/goal.dart';
 import 'package:provider/provider.dart';
-import 'package:myfirstapp/providers/GoalProvider.dart';
+import 'package:GoSaver/providers/GoalProvider.dart';
 
 class withdrawSavingDialog extends StatefulWidget {
   final Goal goal;

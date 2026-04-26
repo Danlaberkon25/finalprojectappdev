@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:myfirstapp/dialogs/withdrawSavingDialog.dart';
+import 'package:GoSaver/dialogs/withdrawSavingDialog.dart';
 import 'package:intl/intl.dart';
-import 'package:myfirstapp/ScreenUI/GoalScreenUI.dart';
+import 'package:GoSaver/ScreenUI/GoalScreenUI.dart';
 
 class GoalScreenMethod {
   final formatter = NumberFormat('#,##0.00');

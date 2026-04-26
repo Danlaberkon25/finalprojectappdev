@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:myfirstapp/models/goal.dart';
+import 'package:GoSaver/models/goal.dart';
 import 'package:provider/provider.dart';
-import 'package:myfirstapp/providers/GoalProvider.dart';
-import 'package:myfirstapp/dialogs/currencyDialog.dart';
-import 'package:myfirstapp/providers/selectionProvider.dart';
+import 'package:GoSaver/providers/GoalProvider.dart';
+import 'package:GoSaver/dialogs/currencyDialog.dart';
+import 'package:GoSaver/providers/selectionProvider.dart';
 class AddGoalDialog extends StatefulWidget {
   const AddGoalDialog({super.key});
 

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:myfirstapp/ScreenUI/GoalScreenUI.dart';
-import 'package:myfirstapp/models/goal.dart';
-import 'package:myfirstapp/screens/HomeScreen.dart';
+import 'package:GoSaver/ScreenUI/GoalScreenUI.dart';
+import 'package:GoSaver/models/goal.dart';
+import 'package:GoSaver/screens/HomeScreen.dart';
 import 'package:percent_indicator/percent_indicator.dart';
-import 'package:myfirstapp/dialogs/addSavingDialog.dart';
+import 'package:GoSaver/dialogs/addSavingDialog.dart';
 import 'package:provider/provider.dart';
-import 'package:myfirstapp/providers/GoalProvider.dart';
-import 'package:myfirstapp/dialogs/editGoalDialog.dart';
-import 'package:myfirstapp/method/GoalScreenMethod.dart';
+import 'package:GoSaver/providers/GoalProvider.dart';
+import 'package:GoSaver/dialogs/editGoalDialog.dart';
+import 'package:GoSaver/method/GoalScreenMethod.dart';
 import 'package:intl/intl.dart';
 
 class GoalScreen extends StatefulWidget {
