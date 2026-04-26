@@ -12,11 +12,8 @@ class Homescreenmethod {
   }
 
   Color conditionColorSaved(goal){
-    if (goal.goalProgress > goal.goalAmount){
-      return Colors.redAccent;
-    }else if(goal.goalProgress == goal.goalAmount){
+    if (goal.goalProgress >= goal.goalAmount && goal.goalAmount != 0){
       return Colors.green;
-
     }else{
       return Colors.black;
     }

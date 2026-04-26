@@ -35,17 +35,15 @@ class _EditGoalDialogState extends State<EditGoalDialog> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Center(child: Image.asset('assets/waitingGIF.gif',
-              height: 49,
-              width: 80,),
-            ),
             Padding(padding: EdgeInsets.all(8),
               child: TextField(
                 controller: _goalName,
                 decoration: InputDecoration(
                   labelStyle: TextStyle(color: Colors.blueAccent),
                   labelText: 'Goal Name',
-                  border: OutlineInputBorder(),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10)
+                  ),
                 ),
               ),
             ),
@@ -57,7 +55,9 @@ class _EditGoalDialogState extends State<EditGoalDialog> {
                 decoration: InputDecoration(
                   labelStyle: TextStyle(color: Colors.blueAccent),
                   labelText: 'Goal Amount',
-                  border: OutlineInputBorder(),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10)
+                  ),
                 ),
               ),
             ),
@@ -65,6 +65,8 @@ class _EditGoalDialogState extends State<EditGoalDialog> {
               child: TextField(
                 readOnly: true,
                 decoration: InputDecoration(
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(14)),
                     suffixIcon: Padding(padding: EdgeInsets.all(2),
                       child: Container(
                         width: 100,
@@ -74,21 +76,21 @@ class _EditGoalDialogState extends State<EditGoalDialog> {
                               color: Colors.white,
                               width: 2,
                             ),
-                            borderRadius: BorderRadius.circular(5),
-                            color: Colors.blueAccent
+                            borderRadius: BorderRadius.circular(14),
+                            color: Colors.grey[300]
                         ),
                         child:TextButton(onPressed: (){
                           showDialog(context: context,
                               builder: (_) => CurrencyDialog());
                         }, child: Text('${selectedCurrency}',
-                          style: TextStyle(color: Colors.white),
+                          style: TextStyle(color: Colors.blue),
                         ),
                         ),
                       ),
                     ),
                     hintText: 'Currency:',
                     hintStyle: TextStyle(color: Colors.blueAccent),
-                    border: OutlineInputBorder()
+
                 ),
               ),
             ),

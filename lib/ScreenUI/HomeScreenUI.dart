@@ -152,30 +152,36 @@ class _GoalContainer extends State<GoalContainer>{ ///Goal Container UI
             );
           },
           child: Container(
-            margin: EdgeInsets.all(10),
+            margin: EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+            width: double.infinity,
             decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [
+                  Colors.white,
+                  Color(0xFFF7FAFF),
+                ],
+              ),
               boxShadow: [
                 BoxShadow(
-                  color: Color.fromRGBO(50, 50, 93, 0.25),
-                  blurRadius: 27,
-                  spreadRadius: -5,
-                  offset: Offset(0, 13),
+                  color: Color(0xFF0B1B3A).withValues(alpha: 0.08),
+                  blurRadius: 22,
+                  spreadRadius: 0,
+                  offset: Offset(0, 12),
                 ),
-                BoxShadow(
-                  color: Color.fromRGBO(0, 0, 0, 0.3),
-                  blurRadius: 16,
-                  spreadRadius: -8,
-                  offset: Offset(0, 8),
-                )
               ],
-              borderRadius: BorderRadius.circular(20),
-              color: Colors.white,
+              borderRadius: BorderRadius.circular(22),
+              border: Border.all(
+                color: Color(0xFFEFF3FA),
+                width: 1,
+              ),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     Padding(
                       padding:
@@ -186,59 +192,73 @@ class _GoalContainer extends State<GoalContainer>{ ///Goal Container UI
                         radius: 30,
                       ),
                     ),
+
                     Expanded(
-                      child: Column(
-                        crossAxisAlignment:
-                        CrossAxisAlignment.start,
+                      child:
+                      Row(
                         children: [
-                          Padding(
-                            padding:
-                            EdgeInsets.only(left: 10, top: 8),
-                            child: Text(
-                              '${goal.goalName}',
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 15,
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.all(0),
-                            child: LinearPercentIndicator(
-                              width: 250,
-                              barRadius: Radius.circular(10),
-                              animation: true,
-                              lineHeight: 10.0,
-                              animationDuration: 2000,
-                              backgroundColor: Colors.grey[300],
-                              percent: homeMethod.getPercentage(goal),
-                              center: Text(
-                                "${homeMethod.gettingPercentage(goal).toStringAsFixed(2)}%",
-                                style: TextStyle(fontSize: 7),),
-                              progressColor: Colors.blue,
-                            ),
-                          ),
-                          Padding(
-                              padding:
-                              EdgeInsets.only(left: 10, top: 2),
-                              child: Row(
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
                                   Padding(
-                                    padding: EdgeInsets.only(right: 3),
-                                    child: Text('${goal.currency} ${formatter.format(goal.goalProgress)}',
-                                      style: TextStyle(color: homeMethod.conditionColorSaved(goal)),
-                                      overflow: TextOverflow.ellipsis,),),
-                                  Text(
-                                      "/ ${goal.currency}${formatter.format(
-                                          goal.goalAmount)}",
-                                  style: TextStyle(color: Colors.grey[700]),)
+                                    padding: EdgeInsets.all(10),
+                                    child: Text(
+                                      '${goal.goalName}',
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w800,
+                                        fontSize: 16,
+                                        letterSpacing: -0.2,
+                                        color: Color(0xFF111827)
+                                      ),
+                                    ),
+                                  ),
                                 ],
-                              )
+                              ),
+                              Padding(
+                                padding: EdgeInsets.all(0),
+                                child: LinearPercentIndicator(
+                                  width: 250,
+                                  barRadius: Radius.circular(10),
+                                  animation: true,
+                                  lineHeight: 10.0,
+                                  animationDuration: 2000,
+                                  backgroundColor: Colors.grey[300],
+                                  percent: homeMethod.getPercentage(goal),
+                                  center: Text(
+                                    "${homeMethod.gettingPercentage(goal).toStringAsFixed(2)}%",
+                                    style: TextStyle(fontSize: 7),),
+                                  progressColor: Colors.blue,
+                                ),
+                              ),
+                              SizedBox(height: 10,),
+
+                              Padding(
+                                  padding:
+                                  EdgeInsets.only(left: 10, top: 2),
+                                  child: Row(
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsets.only(right: 3),
+                                        child: Text('${goal.currency} ${formatter.format(goal.goalProgress)}',
+                                          style: TextStyle(color: homeMethod.conditionColorSaved(goal),fontWeight: FontWeight.w700),
+                                          overflow: TextOverflow.ellipsis,),),
+                                      Text(
+                                        "/ ${goal.currency}${formatter.format(
+                                            goal.goalAmount)}",
+                                        style: TextStyle(fontWeight: FontWeight.w700,color: Color(0xFF94A3B8)),)
+                                    ],
+                                  )
+                              ),
+                            ],
                           ),
                         ],
-                      ),
+                      )
+
 
                     ),
                   ],
@@ -263,6 +283,7 @@ class _FloatingAddGoalButton extends State<FloatingAddGoalButton> {
     return Padding(padding: EdgeInsets.only(right: 30, bottom: 40),
       child: FloatingActionButton(onPressed: () {
         showDialog(context: context,
+            barrierDismissible: true,
             builder: (_) => AddGoalDialog());
       }, child: Icon(Icons.add,color: Colors.white,),backgroundColor: Colors.blue,),);
   }

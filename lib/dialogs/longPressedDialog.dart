@@ -1,3 +1,4 @@
+import 'package:GoSaver/dialogs/confirmationDialog.dart';
 import 'package:flutter/material.dart';
 import 'package:GoSaver/dialogs/editGoalDialog.dart';
 import 'package:provider/provider.dart';
@@ -61,8 +62,9 @@ class _LongPressedDialogState extends State<Longpresseddialog> {
             SizedBox(height: 10,),
             Center(
               child:TextButton(onPressed:(){
-                goalprovider.RemoveGoal(goal);
                 Navigator.pop(context);
+
+                showDialog(context: context, builder: (_) => ConfirmationDialog(goal: goal));
               }, child: Text('Delete',
                 style: TextStyle(color: Colors.redAccent),),
                 style: TextButton.styleFrom(

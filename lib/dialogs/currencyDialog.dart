@@ -27,14 +27,9 @@ class _CurrencyDialogState extends State<CurrencyDialog> {
       ),
       content: SizedBox(
         width: 280,
-        height: 276,
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Center(child: Image.asset('assets/milkandmocha.gif',
-              height: 59,
-              width: 80,),
-            ),
             Padding(padding: EdgeInsets.all(3),
             child: DropdownButtonFormField(
               decoration: InputDecoration(

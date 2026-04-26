@@ -19,31 +19,29 @@ class _AddGoalDialogState extends State<AddGoalDialog> {
 
   @override
   Widget build(BuildContext context) {
-
     final selectedcurrency = context.watch<SelectedCurrencyProvider>().selectedcurrency;
-    return AlertDialog(
-      backgroundColor: Colors.white,
-      title: Center(
-        child: const Text("Create New Goal",
-          style: TextStyle(color: Colors.blueAccent),
+    return
+      AlertDialog(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadiusGeometry.circular(16)
         ),
-      ),
+      backgroundColor: Colors.white,
+      title: Text('Create New Goal'),
       content: SizedBox(
           width: 280,
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Center(child: Image.asset('assets/waitingGIF.gif',
-                height: 49,
-                width: 80,),
-              ),
+
               Padding(padding: EdgeInsets.all(5),
                 child: TextField(
                   controller: _goalName,
                   decoration: InputDecoration(
                     labelStyle: TextStyle(color: Colors.blueAccent),
                     labelText: 'Goal Name',
-                    border: OutlineInputBorder(),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(14)
+                    ),
                   ),
                 ),
               ),
@@ -55,15 +53,19 @@ class _AddGoalDialogState extends State<AddGoalDialog> {
                   decoration: InputDecoration(
                     labelStyle: TextStyle(color: Colors.blueAccent),
                     labelText: 'Goal Amount',
-                    border: OutlineInputBorder(),
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(14)
+                    ),
                   ),
                 ),
               ),
-            
+
               Padding(padding: EdgeInsets.all(5),
                 child: TextField(
                   readOnly: true,
                   decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(14)),
                     suffixIcon: Padding(padding: EdgeInsets.all(5),
                       child: Container(
                         width: 100,
@@ -73,21 +75,20 @@ class _AddGoalDialogState extends State<AddGoalDialog> {
                                 color: Colors.white,
                                 width: 2,
                               ),
-                              borderRadius: BorderRadius.circular(5),
-                              color: Colors.blueAccent
+                              borderRadius: BorderRadius.circular(14),
+                              color: Colors.grey[300]
                           ),
                           child:TextButton(onPressed: (){
                             showDialog(context: context,
                                 builder: (_) => CurrencyDialog());
                           }, child: Text('${selectedcurrency}',
-                          style: TextStyle(color: Colors.white),
+                          style: TextStyle(color: Colors.blue),
                           ),
                           ),
                       ),
                     ),
                     hintText: 'Currency:',
                     hintStyle: TextStyle(color: Colors.blueAccent),
-                    border: OutlineInputBorder()
                   ),
                 ),
               ),
