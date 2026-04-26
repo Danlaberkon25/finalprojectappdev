@@ -1,8 +1,8 @@
-import 'package:myfirstapp/providers/GoalProvider.dart';
-import 'package:myfirstapp/screens/HomeScreen.dart';
+import 'package:GoSaver/providers/GoalProvider.dart';
+import 'package:GoSaver/screens/HomeScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:myfirstapp/providers/selectionProvider.dart';
+import 'package:GoSaver/providers/selectionProvider.dart';
 import 'package:localstorage/localstorage.dart';
 
 late final ValueNotifier<int> notifier;
