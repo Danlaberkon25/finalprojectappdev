@@ -30,14 +30,6 @@ class GoalScreenMethod {
     }
   }
 
-  // Color style for add savings
-  Color colorValidationAddSaving(goal) {
-    if (goal.goalProgress > goal.goalAmount) {
-      return Colors.redAccent;
-    } else {
-      return Colors.black;
-    }
-  }
 
   // Color Style for withdraw
   Color colorValidationWithdraw(String operator) {
