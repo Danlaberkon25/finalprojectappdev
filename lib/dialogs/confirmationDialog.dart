@@ -18,7 +18,7 @@ class ConfirmationDialog extends StatelessWidget{
           TextButton(onPressed: (){
             Navigator.pop(context);
           }, child: Container(
-            width: 100,
+            width: 90,
             height: 30,
             decoration: BoxDecoration(
               color: Colors.transparent,
@@ -34,7 +34,7 @@ class ConfirmationDialog extends StatelessWidget{
             provider.RemoveGoal(goal);
             Navigator.pop(context);
           }, child: Container(
-            width: 100,
+            width: 90,
             height: 30,
             decoration: BoxDecoration(
                 color: Color(0xFF2563EB),
