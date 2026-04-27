@@ -125,7 +125,7 @@ class _SavingsIndicator extends State<SavingsIndicator> {
                   'assets/milk-mocha.gif', width: 100,),
               ),
               Padding(padding: EdgeInsets.only(top: 5),
-                child: Text('${method.gettingPercentage(goal) * 100}%'),),
+                child: Text('${method.getPercentage(goal).toStringAsFixed(2)}%'),),
             ],
           ),
           backgroundColor: Colors.redAccent,

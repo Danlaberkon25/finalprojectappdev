@@ -31,9 +31,7 @@ class Homescreenmethod {
       }
     }else{
       return 0;
-
     }
-
   }
 
   /// getting Percentage like 0.0 to 1

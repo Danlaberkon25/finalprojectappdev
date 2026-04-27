@@ -1,3 +1,4 @@
+import 'package:GoSaver/ScreenUI/HomeScreenUI.dart';
 import 'package:flutter/material.dart';
 import 'package:GoSaver/dialogs/withdrawSavingDialog.dart';
 import 'package:intl/intl.dart';
@@ -21,14 +22,29 @@ class GoalScreenMethod {
     }
   }
 
+
+  double getPercentage(goal) {
+    final getPercentage = (goal.goalProgress / goal.goalAmount) * 100;
+    if(goal.goalAmount != 0){
+      if(getPercentage > 100){
+        return 100;
+      }else{
+        return getPercentage;
+      }
+    }else{
+      return 0;
+    }
+  }
+
   // Color style for Saved
   Color colorValidationSaved(goal) {
-    if (goal.goalProgress > goal.goalAmount && goal.goalAmount != 0) {
+    if (goal.goalProgress >= goal.goalAmount && goal.goalAmount != 0) {
       return Colors.green;
     } else {
       return Colors.black;
     }
   }
+
 
 
   // Color Style for withdraw

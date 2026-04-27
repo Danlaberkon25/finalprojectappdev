@@ -67,7 +67,7 @@ class _GoalScreenState extends State<GoalScreen> {
                     Row(
                       children: [
                         SavingsContainer(goal: goal),
-                        GoalAmountContainer(goal: goal)
+                        GoalAmountContainer(goal: goal),
                       ],
                     ),
                     SizedBox(height: 10,),

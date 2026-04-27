@@ -108,8 +108,10 @@ class _AddGoalDialogState extends State<AddGoalDialog> {
                     if (_goalName.text == '' && _goalAmount.text == ''){
                       _goalName.text = 'Unitlted';
                       _goalAmount.text = '0';
-                    }else if(_goalAmount.text == ''){
+                    }else if(_goalAmount.text.isEmpty){
                       _goalAmount.text = '0';
+                    }else if(_goalName.text.isEmpty){
+                      _goalName.text = 'Unitlted';
                     }
                     final goal = Goal(
                       id:DateTime.now()!.toString(),
@@ -120,9 +122,7 @@ class _AddGoalDialogState extends State<AddGoalDialog> {
                       goalHistory: [],
                       isArchived: false,
                     );
-
                     Navigator.pop(context);
-
                     context.read<GoalProvider>().AddGoal(goal);
 
                   },

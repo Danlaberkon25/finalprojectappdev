@@ -79,7 +79,7 @@ class _Body extends State<Body> { //// Body UI
       itemCount: goals.length,
       itemBuilder: (context, index) {
         final goal = goals[index];
-        return GoalContainer(goal: goal); /// pag di eto magets
+        return GoalContainer(goal: goal);/// pag di eto magets
         /// pakireview nalang sa baba yung class thank you very much :P
         ///
       },
