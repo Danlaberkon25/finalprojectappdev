@@ -9,6 +9,7 @@ import 'package:GoSaver/dialogs/editGoalDialog.dart';
 import 'package:GoSaver/method/GoalScreenMethod.dart';
 import 'package:intl/intl.dart';
 
+/// App Bar Widget
 class appBarWidget extends StatelessWidget implements PreferredSizeWidget {
   final Goal goal;
   @override
@@ -95,6 +96,7 @@ Widget progressAmountLabel(){
   );
 }
 
+/// Savings Indicator Creating State
 class SavingsIndicator extends StatefulWidget {
   final Goal goal;
 
@@ -103,7 +105,7 @@ class SavingsIndicator extends StatefulWidget {
   @override
   _SavingsIndicator createState() => _SavingsIndicator();
 }
-
+///  Savings Indicator UI
 class _SavingsIndicator extends State<SavingsIndicator> {
   @override
   Widget build(BuildContext context) {
@@ -463,7 +465,7 @@ class _GoalHistoryContainerWithoutNote extends State<GoalHistoryContainerWithout
   }
 }
 
-///History Goal Amount Widget
+///History Goal Amount Add Savings Widget
 Widget historyGoalAmountAddSavings(currency,amount){
   final formatter = NumberFormat('#,##0.00');
   return Text(
@@ -476,7 +478,7 @@ Widget historyGoalAmountAddSavings(currency,amount){
     ),
   );
 }
-
+/// History Goal Amount Withdraw Widget
 Widget historyGoalAmountWithdraw(currency,amount){
   final formatter = NumberFormat('#,##0.00');
   return Text(
