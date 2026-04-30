@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
+import 'package:GoSaver/providers/GoalProvider.dart';
+import 'package:GoSaver/ScreenUI/HomeScreenUI.dart';
+
 
 
 class Homescreenmethod {
@@ -49,6 +53,16 @@ class Homescreenmethod {
     }
   }
 
-
-
+  Widget PageViewContainerCondition(context){
+    final goals = context.watch<GoalProvider>().goals;
+    if(goals.isEmpty){
+      return EmptyBody();
+    }else{
+      return Body();
+    }
+  }
 }
+
+///)
+
+

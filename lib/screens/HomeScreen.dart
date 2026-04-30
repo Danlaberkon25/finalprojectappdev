@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:GoSaver/method/HomeScreenMethod.dart';
 import 'package:GoSaver/ScreenUI/HomeScreenUI.dart';
 
+
+
 class HomePage extends StatefulWidget {
   @override
   _HomePage createState() => _HomePage();
@@ -16,9 +18,7 @@ class _HomePage extends State<HomePage> {
     return Scaffold(
       backgroundColor: Colors.grey[50],
       resizeToAvoidBottomInset: true,
-      drawer: AppDrawer(),
-      appBar: appBar(),
-      body: Body(),
+      body: SafeArea(child: Body()),
       floatingActionButton: FloatingAddGoalButton(),
     );
 

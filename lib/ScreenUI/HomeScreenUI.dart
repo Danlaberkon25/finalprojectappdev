@@ -75,15 +75,21 @@ class _Body extends State<Body> { //// Body UI
     final formatter = NumberFormat('#,##0.00');
     return goals.isEmpty
         ? EmptyBody()
-        : ListView.builder(
-      itemCount: goals.length,
-      itemBuilder: (context, index) {
-        final goal = goals[index];
-        return GoalContainer(goal: goal);/// pag di eto magets
-        /// pakireview nalang sa baba yung class thank you very much :P
-        ///
-      },
+        :SafeArea(child:Column(
+      children: [
+        ListView.builder(
+          itemCount: goals.length,
+          itemBuilder: (context, index) {
+            final goal = goals[index];
+            return GoalContainer(goal: goal);/// pag di eto magets
+            /// pakireview nalang sa baba yung class thank you very much :P
+            ///
+          },
+        ),
+      ],
+    )
     );
+
   }
 }
 
@@ -95,27 +101,32 @@ class EmptyBody extends StatefulWidget{ ///Empty Body Creating State
 class _EmptyBody extends State<EmptyBody> { ///Empty Body UI
   @override
   Widget build(BuildContext context) {
-   return Padding(
-      padding: EdgeInsets.all(20),
-      child: Column(
-        children: [
-          Center(
-            child: Padding(
-              padding: EdgeInsets.only(top: 46),
-              child: Image.asset('assets/milk-hi.gif'),
-            ),
-          ),
-          Center(
-            child: Padding(
-              padding: EdgeInsets.only(top: 40),
-              child: Text(
-                "Seems like you are new, Let's create your first goal",
-                style: TextStyle(fontSize: 15),
-              ),
-            ),
-          )
-        ],
-      )
+   return SafeArea(child:
+   Column(
+     crossAxisAlignment: CrossAxisAlignment.start,
+         children: [
+           Padding(padding: EdgeInsets.only(top: 5,left: 10),
+           child: Text('GoSaver'),),
+           Padding(padding: EdgeInsets.only(top: 3,left: 10),
+           child: Text('Goal Dashboard',
+           style: TextStyle(fontSize: 24,fontWeight: FontWeight.bold),),),
+           Center(
+             child: Padding(
+               padding: EdgeInsets.only(top: 46),
+               child: Image.asset('assets/milk-hi.gif'),
+             ),
+           ),
+           Center(
+             child: Padding(
+               padding: EdgeInsets.only(top: 40),
+               child: Text(
+                 "Seems like you are new, Let's create your first goal",
+                 style: TextStyle(fontSize: 15),
+               ),
+             ),
+           )
+         ],
+       )
    );
   }
 }
